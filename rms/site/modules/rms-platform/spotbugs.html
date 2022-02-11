@@ -161,7 +161,7 @@
 <th>Line</th>
 <th>Priority</th></tr>
 <tr class="b">
-<td>new io.extact.rms.platform.jwt.impl.jose4j.Jose4jCallerPrincipal(String, JwtClaims) &#x306f;&#xff0c;Jose4jCallerPrincipal.claims &#x306e;&#x4e2d;&#x306b;&#x5916;&#x90e8;&#x306e;&#x53ef;&#x5909;&#x30aa;&#x30d6;&#x30b8;&#x30a7;&#x30af;&#x30c8;&#x3092;&#x683c;&#x7d0d;&#x3059;&#x308b;&#x3053;&#x3068;&#x306b;&#x3088;&#x3063;&#x3066;&#x5185;&#x90e8;&#x8868;&#x73fe;&#x3092;&#x66b4;&#x9732;&#x3059;&#x308b;&#x304b;&#x3082;&#x3057;&#x308c;&#x307e;&#x305b;&#x3093;&#x3002;</td>
+<td>new io.extact.rms.platform.jwt.impl.jose4j.Jose4jCallerPrincipal(String, JwtClaims) may expose internal representation by storing an externally mutable object into Jose4jCallerPrincipal.claims</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
 <td><a href="./xref/io/extact/rms/platform/jwt/impl/jose4j/Jose4jCallerPrincipal.html#L22">22</a></td>
@@ -173,7 +173,7 @@
     <footer>
       <div class="container-fluid">
         <div class="row-fluid">
-            <p>&#169;      2021&#x2013;2022
+            <p>&#169;      2022
 <a href="https://www.extact.io/">extact.io Co.,Ltd.</a>
         <li id="publishDate" class="pull-right">Last Published: 2022-02-11</li>
           <li id="projectVersion" class="pull-right">Version: 1.0.0-SNAPSHOT</li>

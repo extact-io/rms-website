@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"io.extact.rms.client.api.adaptor.local","h":"","u":""},{"l":"io.extact.rms.client.api.adaptor.local.dto","h":"","u":""},{"l":"すべてのパッケージ","h":"","u":"allpackages-index.html"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"io.extact.rms.client.api.adaptor.local"},{"l":"io.extact.rms.client.api.adaptor.local.dto"}]
