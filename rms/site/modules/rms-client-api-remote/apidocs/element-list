@@ -1,0 +1,4 @@
+io.extact.rms.client.api.adaptor.remote
+io.extact.rms.client.api.adaptor.remote.auth
+io.extact.rms.client.api.adaptor.remote.dto
+io.extact.rms.client.api.adaptor.remote.rest
