@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>RentalReservationApplicationImpl.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">rms-coverage</a> &gt; <a href="../index.html" class="el_bundle">rms-application</a> &gt; <a href="index.source.html" class="el_package">io.extact.rms.application</a> &gt; <span class="el_source">RentalReservationApplicationImpl.java</span></div><h1>RentalReservationApplicationImpl.java</h1><pre class="source lang-java linenums">package io.extact.rms.application;
+
+import static io.extact.rms.application.exception.BusinessFlowException.CauseType.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
+
+import io.extact.rms.application.common.LoginUserUtils;
+import io.extact.rms.application.domain.RentalItem;
+import io.extact.rms.application.domain.Reservation;
+import io.extact.rms.application.domain.UserAccount;
+import io.extact.rms.application.exception.BusinessFlowException;
+import io.extact.rms.application.exception.RmsSystemException;
+import io.extact.rms.application.exception.BusinessFlowException.CauseType;
+import io.extact.rms.application.service.RentalItemService;
+import io.extact.rms.application.service.ReservationService;
+import io.extact.rms.application.service.UserAccountService;
+import io.extact.rms.platform.debug.DebugSleepInterceptor.DebugSleep;
+
+@Transactional(TxType.REQUIRED)
+@ApplicationScoped
+@DebugSleep
+public class RentalReservationApplicationImpl implements RentalReservationApplication {
+
+    private RentalItemService rentalItemService;
+    private ReservationService reservationService;
+    private UserAccountService userService;
+
+    private Map&lt;Class&lt;?&gt;, Function&lt;Integer, ?&gt;&gt; entityGetterMap;
+
+    // ----------------------------------------------------- constructor methods
+
+    @Inject
+    public RentalReservationApplicationImpl(RentalItemService rentalItemService,
+                ReservationService reservationService,
+<span class="fc" id="L45">                UserAccountService userAccountService) {</span>
+<span class="fc" id="L46">        this.rentalItemService = rentalItemService;</span>
+<span class="fc" id="L47">        this.reservationService = reservationService;</span>
+<span class="fc" id="L48">        this.userService = userAccountService;</span>
+
+<span class="fc" id="L50">        this.entityGetterMap = Map.of(</span>
+<span class="fc" id="L51">                RentalItem.class, rentalItemService::get,</span>
+<span class="fc" id="L52">                Reservation.class, reservationService::get,</span>
+<span class="fc" id="L53">                UserAccount.class, userAccountService::get</span>
+            );
+<span class="fc" id="L55">    }</span>
+
+
+    // ----------------------------------------------------- public methods
+
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public &lt;T&gt; T get(Class&lt;T&gt; entityClass, int id) {
+<span class="fc" id="L62">        return (T) entityGetterMap.get(entityClass).apply(id);</span>
+    }
+
+    @Override
+    public UserAccount authenticate(String loginId, String password) throws BusinessFlowException {
+<span class="fc" id="L67">        var user = userService.findByLoginIdAndPasswod(loginId, password);</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        if (user == null) {</span>
+<span class="fc" id="L69">            throw new BusinessFlowException(&quot;The loginId or password is different&quot;, NOT_FOUND);</span>
+        }
+<span class="fc" id="L71">        return user;</span>
+    }
+
+    @Override
+    public List&lt;Reservation&gt; findReservationByRentalItemAndStartDate(Integer rentalItemId, LocalDate startDate)
+            throws BusinessFlowException {
+<span class="fc" id="L77">        var reservations = reservationService.findByRentalItemAndStartDate(rentalItemId, startDate);</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">        if (reservations.isEmpty()) {</span>
+<span class="fc" id="L79">            throw new BusinessFlowException(&quot;Reservation does not exist for rentalItemId and startDate&quot;, NOT_FOUND);</span>
+        }
+<span class="fc" id="L81">        return reservations.stream()</span>
+<span class="fc" id="L82">                .map(this::toTraversedReservation)</span>
+<span class="fc" id="L83">                .collect(Collectors.toList());</span>
+    }
+
+    @Override
+    public List&lt;Reservation&gt; findReservationByReserverId(int reserverId) {
+<span class="fc" id="L88">        var reservations = reservationService.findByReserverId(reserverId);</span>
+<span class="fc" id="L89">        return reservations.stream()</span>
+<span class="fc" id="L90">                .map(this::toTraversedReservation)</span>
+<span class="fc" id="L91">                .collect(Collectors.toList());</span>
+    }
+
+    @Override
+    public List&lt;Reservation&gt; findReservationByRentalItemId(int rentalItemId) {
+<span class="fc" id="L96">        var reservations = reservationService.findByRentalItemId(rentalItemId);</span>
+<span class="fc" id="L97">        return reservations.stream()</span>
+<span class="fc" id="L98">                .map(this::toTraversedReservation)</span>
+<span class="fc" id="L99">                .collect(Collectors.toList());</span>
+    }
+
+    @Override
+    public List&lt;RentalItem&gt; findCanRentedItemAtTerm(LocalDateTime from, LocalDateTime to) {
+<span class="fc" id="L104">        var reservedItemIds = reservationService.findOverlappedReservation(from, to).stream()</span>
+<span class="fc" id="L105">                .map(Reservation::getRentalItemId)</span>
+<span class="fc" id="L106">                .collect(Collectors.toList());</span>
+<span class="fc" id="L107">        return rentalItemService.findAll().stream()</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">                .filter(item -&gt; !reservedItemIds.contains(item.getId()))</span>
+<span class="fc" id="L109">                .collect(Collectors.toList());</span>
+    }
+
+    @Override
+    public boolean canRentedItemAtTerm(int rentalItemId, LocalDateTime from, LocalDateTime to) {
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        return reservationService.findOverlappedReservation(rentalItemId, from, to) == null;</span>
+    }
+
+    @Override
+    public List&lt;Reservation&gt; getAllReservations() {
+<span class="fc" id="L119">        var reservations = reservationService.findAll();</span>
+<span class="fc" id="L120">        return reservations.stream()</span>
+<span class="fc" id="L121">                .map(this::toTraversedReservation)</span>
+<span class="fc" id="L122">                .collect(Collectors.toList());</span>
+    }
+
+    @Override
+    public List&lt;RentalItem&gt; getAllRentalItems() {
+<span class="fc" id="L127">        return rentalItemService.findAll();</span>
+    }
+
+    @Override
+    public List&lt;UserAccount&gt; getAllUserAccounts() {
+<span class="fc" id="L132">        return userService.findAll();</span>
+    }
+
+    @Override
+    public Reservation addReservation(Reservation addReservation) throws BusinessFlowException {
+
+<span class="fc" id="L138">        var rentalItem = rentalItemService.get(addReservation.getRentalItemId());</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">        if (rentalItem == null) {</span>
+<span class="fc" id="L140">            throw new BusinessFlowException(&quot;RentalItem does not exist for rentalItemId.&quot;, NOT_FOUND);</span>
+        }
+
+        // 予約の登録
+<span class="fc" id="L144">        var newReservation = reservationService.add(addReservation);</span>
+
+        // 予約オブジェクトの再構成
+<span class="fc" id="L147">        var reserver = getUserAccount(addReservation.getUserAccountId());</span>
+<span class="fc" id="L148">        newReservation.setRentalItem(rentalItem);</span>
+<span class="fc" id="L149">        newReservation.setUserAccount(reserver);</span>
+
+<span class="fc" id="L151">        return newReservation;</span>
+    }
+
+    @Override
+    public RentalItem addRentalItem(RentalItem addRentalItem) throws BusinessFlowException, RmsSystemException {
+<span class="fc" id="L156">        return rentalItemService.add(addRentalItem);</span>
+    }
+
+    @Override
+    public UserAccount addUserAccount(UserAccount addUserAccount) throws BusinessFlowException {
+<span class="fc" id="L161">        return userService.add(addUserAccount);</span>
+    }
+
+    @Override
+    public RentalItem updateRentalItem(RentalItem updateRentalItem) {
+<span class="fc" id="L166">        return rentalItemService.update(updateRentalItem);</span>
+    }
+
+    @Override
+    public Reservation updateReservation(Reservation updateReservation) {
+<span class="fc" id="L171">        var reservation = reservationService.update(updateReservation);</span>
+<span class="fc" id="L172">        return toTraversedReservation(reservation);</span>
+    }
+
+    @Override
+    public UserAccount updateUserAccount(UserAccount updateUserAccount) {
+<span class="fc" id="L177">        return userService.update(updateUserAccount);</span>
+    }
+
+    @Override
+    public void deleteRentalItem(int rentalItemId) throws BusinessFlowException {
+<span class="fc" id="L182">        var isRefered = reservationService.hasRefereToRentalItem(rentalItemId);</span>
+<span class="fc bfc" id="L183" title="All 2 branches covered.">        if (isRefered) {</span>
+<span class="fc" id="L184">            throw new BusinessFlowException(&quot;Cannot be deleted because it is referenced in the reservation.&quot;, CauseType.REFERED);</span>
+        }
+<span class="fc" id="L186">        rentalItemService.delete(rentalItemId);</span>
+<span class="fc" id="L187">    }</span>
+
+    @Override
+    public void deleteReservation(int reservationId) throws BusinessFlowException {
+<span class="fc" id="L191">        reservationService.delete(reservationId);</span>
+<span class="fc" id="L192">    }</span>
+
+    @Override
+    public void deleteUserAccount(int userAccountId) throws BusinessFlowException {
+<span class="fc" id="L196">        var isRefered = reservationService.hasRefereToUserAccount(userAccountId);</span>
+<span class="fc bfc" id="L197" title="All 2 branches covered.">        if (isRefered) {</span>
+<span class="fc" id="L198">            throw new BusinessFlowException(&quot;Cannot be deleted because it is referenced in the reservation.&quot;, CauseType.REFERED);</span>
+        }
+<span class="fc" id="L200">        userService.delete(userAccountId);</span>
+<span class="fc" id="L201">    }</span>
+
+    @Override
+    public void cancelReservation(int reservationId) throws BusinessFlowException {
+<span class="fc" id="L205">        reservationService.cancel(reservationId, LoginUserUtils.get().getUserId());</span>
+<span class="fc" id="L206">    }</span>
+
+    @Override
+    public UserAccount getOwnUserProfile() throws BusinessFlowException {
+<span class="nc" id="L210">        var targetId = LoginUserUtils.get().getUserId();</span>
+<span class="nc" id="L211">        var userAccount = userService.get(targetId);</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">        if (userAccount == null) {</span>
+<span class="nc" id="L213">            throw new BusinessFlowException(&quot;UserAccount does not exist for LoginId.&quot;, NOT_FOUND);</span>
+        }
+<span class="nc" id="L215">        return userAccount;</span>
+    }
+
+    @Override
+    public UserAccount updateUserProfile(UserAccount updateUserAccount) {
+<span class="fc bfc" id="L220" title="All 2 branches covered.">        if (LoginUserUtils.get().getUserId() != updateUserAccount.getId()) {</span>
+<span class="fc" id="L221">            throw new BusinessFlowException(&quot;other's profile cannot be updated.&quot;, CauseType.FORBIDDEN);</span>
+        }
+<span class="fc" id="L223">        return userService.update(updateUserAccount);</span>
+    }
+
+    // ----------------------------------------------------- private methods
+
+    private Reservation toTraversedReservation(Reservation resavation) {
+<span class="fc" id="L229">        var rentalItems = getRentalItem(resavation.getRentalItemId());</span>
+<span class="fc" id="L230">        resavation.setRentalItem(rentalItems);</span>
+<span class="fc" id="L231">        var reservers = getUserAccount(resavation.getUserAccountId());</span>
+<span class="fc" id="L232">        resavation.setUserAccount(reservers);</span>
+<span class="fc" id="L233">        return resavation;</span>
+    }
+
+    private RentalItem getRentalItem(int rentalItemId) {
+<span class="fc" id="L237">        return rentalItemService.get(rentalItemId);</span>
+    }
+
+    private UserAccount getUserAccount(int userAccountId) {
+<span class="fc" id="L241">        return userService.get(userAccountId);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

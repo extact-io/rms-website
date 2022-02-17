@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RentalItemResourceDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">rms-server</a> &gt; <a href="index.source.html" class="el_package">io.extact.rms.external.webapi.dto</a> &gt; <span class="el_source">RentalItemResourceDto.java</span></div><h1>RentalItemResourceDto.java</h1><pre class="source lang-java linenums">package io.extact.rms.external.webapi.dto;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import io.extact.rms.application.domain.RentalItem;
+import io.extact.rms.application.domain.constraint.ItemName;
+import io.extact.rms.application.domain.constraint.RmsId;
+import io.extact.rms.application.domain.constraint.SerialNo;
+
+@Schema(description = &quot;レンタル品DTO&quot;)
+@Getter
+<span class="fc" id="L17">@Setter</span>
+<span class="fc" id="L18">public class RentalItemResourceDto {</span>
+
+    @RmsId
+    @Schema(required = true)
+<span class="fc" id="L22">    private Integer id;</span>
+
+    @SerialNo
+    @Schema(required = true)
+<span class="fc" id="L26">    private String serialNo;</span>
+
+    @ItemName
+    @Schema(required = false)
+<span class="fc" id="L30">    private String itemName;</span>
+
+    public static RentalItemResourceDto toDto(RentalItem entity) {
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">        if (entity == null) {</span>
+<span class="nc" id="L34">            return null;</span>
+        }
+<span class="fc" id="L36">        var dto = new RentalItemResourceDto();</span>
+<span class="fc" id="L37">        dto.setId(entity.getId());</span>
+<span class="fc" id="L38">        dto.setSerialNo(entity.getSerialNo());</span>
+<span class="fc" id="L39">        dto.setItemName(entity.getItemName());</span>
+<span class="fc" id="L40">        return dto;</span>
+    }
+
+    public RentalItem toEntity() {
+<span class="fc" id="L44">        return RentalItem.of(id, serialNo, itemName);</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L49">        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
