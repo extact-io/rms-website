@@ -167,7 +167,7 @@
 <th>Line</th>
 <th>Priority</th></tr>
 <tr class="b">
-<td>new io.extact.rms.external.webapi.RentalReservationResource(RentalReservationApplication) &#x306f;&#xff0c;RentalReservationResource.application &#x306e;&#x4e2d;&#x306b;&#x5916;&#x90e8;&#x306e;&#x53ef;&#x5909;&#x30aa;&#x30d6;&#x30b8;&#x30a7;&#x30af;&#x30c8;&#x3092;&#x683c;&#x7d0d;&#x3059;&#x308b;&#x3053;&#x3068;&#x306b;&#x3088;&#x3063;&#x3066;&#x5185;&#x90e8;&#x8868;&#x73fe;&#x3092;&#x66b4;&#x9732;&#x3059;&#x308b;&#x304b;&#x3082;&#x3057;&#x308c;&#x307e;&#x305b;&#x3093;&#x3002;</td>
+<td>new io.extact.rms.external.webapi.RentalReservationResource(RentalReservationApplication) may expose internal representation by storing an externally mutable object into RentalReservationResource.application</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
 <td><a href="./xref/io/extact/rms/external/webapi/RentalReservationResource.html#L37">37</a></td>
@@ -181,25 +181,25 @@
 <th>Line</th>
 <th>Priority</th></tr>
 <tr class="b">
-<td>io.extact.rms.external.webapi.dto.ReservationResourceDto.getRentalItemDto() &#x306f;&#xff0c;ReservationResourceDto.rentalItemDto &#x3092;&#x8fd4;&#x3059;&#x3053;&#x3068;&#x306b;&#x3088;&#x3063;&#x3066;&#x5185;&#x90e8;&#x8868;&#x73fe;&#x3092;&#x66b4;&#x9732;&#x3059;&#x308b;&#x304b;&#x3082;&#x3057;&#x308c;&#x307e;&#x305b;&#x3093;&#x3002;</td>
+<td>io.extact.rms.external.webapi.dto.ReservationResourceDto.getRentalItemDto() may expose internal representation by returning ReservationResourceDto.rentalItemDto</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
 <td><a href="./xref/io/extact/rms/external/webapi/dto/ReservationResourceDto.html#L54">54</a></td>
 <td>Medium</td></tr>
 <tr class="a">
-<td>io.extact.rms.external.webapi.dto.ReservationResourceDto.getUserAccountDto() &#x306f;&#xff0c;ReservationResourceDto.userAccountDto &#x3092;&#x8fd4;&#x3059;&#x3053;&#x3068;&#x306b;&#x3088;&#x3063;&#x3066;&#x5185;&#x90e8;&#x8868;&#x73fe;&#x3092;&#x66b4;&#x9732;&#x3059;&#x308b;&#x304b;&#x3082;&#x3057;&#x308c;&#x307e;&#x305b;&#x3093;&#x3002;</td>
+<td>io.extact.rms.external.webapi.dto.ReservationResourceDto.getUserAccountDto() may expose internal representation by returning ReservationResourceDto.userAccountDto</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
 <td><a href="./xref/io/extact/rms/external/webapi/dto/ReservationResourceDto.html#L51">51</a></td>
 <td>Medium</td></tr>
 <tr class="b">
-<td>io.extact.rms.external.webapi.dto.ReservationResourceDto.setRentalItemDto(RentalItemResourceDto) &#x306f;&#xff0c;ReservationResourceDto.rentalItemDto &#x306e;&#x4e2d;&#x306b;&#x5916;&#x90e8;&#x306e;&#x53ef;&#x5909;&#x30aa;&#x30d6;&#x30b8;&#x30a7;&#x30af;&#x30c8;&#x3092;&#x683c;&#x7d0d;&#x3059;&#x308b;&#x3053;&#x3068;&#x306b;&#x3088;&#x3063;&#x3066;&#x5185;&#x90e8;&#x8868;&#x73fe;&#x3092;&#x66b4;&#x9732;&#x3059;&#x308b;&#x304b;&#x3082;&#x3057;&#x308c;&#x307e;&#x305b;&#x3093;&#x3002;</td>
+<td>io.extact.rms.external.webapi.dto.ReservationResourceDto.setRentalItemDto(RentalItemResourceDto) may expose internal representation by storing an externally mutable object into ReservationResourceDto.rentalItemDto</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
 <td><a href="./xref/io/extact/rms/external/webapi/dto/ReservationResourceDto.html#L22">22</a></td>
 <td>Medium</td></tr>
 <tr class="a">
-<td>io.extact.rms.external.webapi.dto.ReservationResourceDto.setUserAccountDto(UserAccountResourceDto) &#x306f;&#xff0c;ReservationResourceDto.userAccountDto &#x306e;&#x4e2d;&#x306b;&#x5916;&#x90e8;&#x306e;&#x53ef;&#x5909;&#x30aa;&#x30d6;&#x30b8;&#x30a7;&#x30af;&#x30c8;&#x3092;&#x683c;&#x7d0d;&#x3059;&#x308b;&#x3053;&#x3068;&#x306b;&#x3088;&#x3063;&#x3066;&#x5185;&#x90e8;&#x8868;&#x73fe;&#x3092;&#x66b4;&#x9732;&#x3059;&#x308b;&#x304b;&#x3082;&#x3057;&#x308c;&#x307e;&#x305b;&#x3093;&#x3002;</td>
+<td>io.extact.rms.external.webapi.dto.ReservationResourceDto.setUserAccountDto(UserAccountResourceDto) may expose internal representation by storing an externally mutable object into ReservationResourceDto.userAccountDto</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
 <td><a href="./xref/io/extact/rms/external/webapi/dto/ReservationResourceDto.html#L22">22</a></td>
@@ -213,19 +213,19 @@
 <th>Line</th>
 <th>Priority</th></tr>
 <tr class="a">
-<td>io.extact.rms.external.webapi.mapper.ValidationErrorInfo.getErrorItems() &#x306f;&#xff0c;ValidationErrorInfo.errorItems &#x3092;&#x8fd4;&#x3059;&#x3053;&#x3068;&#x306b;&#x3088;&#x3063;&#x3066;&#x5185;&#x90e8;&#x8868;&#x73fe;&#x3092;&#x66b4;&#x9732;&#x3059;&#x308b;&#x304b;&#x3082;&#x3057;&#x308c;&#x307e;&#x305b;&#x3093;&#x3002;</td>
+<td>io.extact.rms.external.webapi.mapper.ValidationErrorInfo.getErrorItems() may expose internal representation by returning ValidationErrorInfo.errorItems</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
 <td><a href="./xref/io/extact/rms/external/webapi/mapper/ValidationErrorInfo.html#L18">18</a></td>
 <td>Medium</td></tr>
 <tr class="b">
-<td>new io.extact.rms.external.webapi.mapper.ValidationErrorInfo(String, String, List) &#x306f;&#xff0c;ValidationErrorInfo.errorItems &#x306e;&#x4e2d;&#x306b;&#x5916;&#x90e8;&#x306e;&#x53ef;&#x5909;&#x30aa;&#x30d6;&#x30b8;&#x30a7;&#x30af;&#x30c8;&#x3092;&#x683c;&#x7d0d;&#x3059;&#x308b;&#x3053;&#x3068;&#x306b;&#x3088;&#x3063;&#x3066;&#x5185;&#x90e8;&#x8868;&#x73fe;&#x3092;&#x66b4;&#x9732;&#x3059;&#x308b;&#x304b;&#x3082;&#x3057;&#x308c;&#x307e;&#x305b;&#x3093;&#x3002;</td>
+<td>new io.extact.rms.external.webapi.mapper.ValidationErrorInfo(String, String, List) may expose internal representation by storing an externally mutable object into ValidationErrorInfo.errorItems</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
 <td><a href="./xref/io/extact/rms/external/webapi/mapper/ValidationErrorInfo.html#L22">22</a></td>
 <td>Medium</td></tr>
 <tr class="a">
-<td>io.extact.rms.external.webapi.mapper.ValidationErrorInfo.setErrorItems(List) &#x306f;&#xff0c;ValidationErrorInfo.errorItems &#x306e;&#x4e2d;&#x306b;&#x5916;&#x90e8;&#x306e;&#x53ef;&#x5909;&#x30aa;&#x30d6;&#x30b8;&#x30a7;&#x30af;&#x30c8;&#x3092;&#x683c;&#x7d0d;&#x3059;&#x308b;&#x3053;&#x3068;&#x306b;&#x3088;&#x3063;&#x3066;&#x5185;&#x90e8;&#x8868;&#x73fe;&#x3092;&#x66b4;&#x9732;&#x3059;&#x308b;&#x304b;&#x3082;&#x3057;&#x308c;&#x307e;&#x305b;&#x3093;&#x3002;</td>
+<td>io.extact.rms.external.webapi.mapper.ValidationErrorInfo.setErrorItems(List) may expose internal representation by storing an externally mutable object into ValidationErrorInfo.errorItems</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
 <td><a href="./xref/io/extact/rms/external/webapi/mapper/ValidationErrorInfo.html#L14">14</a></td>

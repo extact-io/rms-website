@@ -51,4 +51,4 @@ rms-platform,io.extact.rms.platform.extension,ConfiguredCdiBeanBinder.Configured
 rms-platform,io.extact.rms.platform.extension,ConfiguredCdiBeanBinder.ConfiguredCdiBeanBindFinisher,0,144,0,4,0,19,0,8,0,6
 rms-platform,io.extact.rms.platform.extension,ConfiguredCdiBeanBinder,0,99,0,0,0,19,0,11,0,11
 rms-platform,io.extact.rms.platform.util,ResourceUtils.TargetFileCollector,0,22,0,2,0,7,0,3,0,2
-rms-platform,io.extact.rms.platform.util,ResourceUtils,27,209,1,11,9,49,2,18,1,13
+rms-platform,io.extact.rms.platform.util,ResourceUtils,30,206,1,11,10,48,2,18,1,13

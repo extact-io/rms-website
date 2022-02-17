@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"io.extact.rms.test.assertj","h":"","u":""},{"l":"io.extact.rms.test.junit5","h":"","u":""},{"l":"すべてのパッケージ","h":"","u":"allpackages-index.html"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"io.extact.rms.test.assertj"},{"l":"io.extact.rms.test.junit5"}]
