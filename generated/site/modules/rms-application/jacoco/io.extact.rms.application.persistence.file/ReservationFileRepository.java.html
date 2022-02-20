@@ -9,8 +9,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import io.extact.rms.application.domain.Reservation;
-import io.extact.rms.application.persistence.ReservationRepository;
 import io.extact.rms.application.persistence.GenericRepository.ApiType;
+import io.extact.rms.application.persistence.ReservationRepository;
 import io.extact.rms.application.persistence.file.converter.EntityArrayConverter;
 import io.extact.rms.application.persistence.file.io.FileAccessor;
 import io.extact.rms.platform.extension.EnabledIfRuntimeConfig;
@@ -49,24 +49,30 @@ public class ReservationFileRepository extends AbstractFileRepository&lt;Reserva
 <span class="fc" id="L49">                .collect(Collectors.toList());</span>
     }
 
-    @Override
-    public Reservation findOverlappedReservation(int rentalItemId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+    //@Override
+    public List&lt;Reservation&gt; findOverlappedReservations(int rentalItemId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
 <span class="fc" id="L54">        var conditionOfPeriod = new Reservation.DateTimePeriod(startDateTime, endDateTime);</span>
 <span class="fc" id="L55">        return this.load().stream()</span>
 <span class="fc" id="L56">                .map(this.getConverter()::toEntity)</span>
 <span class="fc bfc" id="L57" title="All 2 branches covered.">                .filter(reservation -&gt; reservation.getRentalItemId() == rentalItemId)</span>
 <span class="fc" id="L58">                .filter(reservation -&gt; reservation.getReservePeriod().isOverlappedBy(conditionOfPeriod))</span>
-<span class="fc" id="L59">                .findFirst()</span>
-<span class="fc" id="L60">                .orElse(null);</span>
+<span class="fc" id="L59">                .collect(Collectors.toList());</span>
     }
 
     @Override
-    public List&lt;Reservation&gt; findOverlappedReservation(LocalDateTime from, LocalDateTime to) {
-<span class="fc" id="L65">        var conditionOfPeriod = new Reservation.DateTimePeriod(from, to);</span>
-<span class="fc" id="L66">        return this.load().stream()</span>
-<span class="fc" id="L67">                .map(this.getConverter()::toEntity)</span>
-<span class="fc" id="L68">                .filter(reservation -&gt; reservation.getReservePeriod().isOverlappedBy(conditionOfPeriod))</span>
-<span class="fc" id="L69">                .collect(Collectors.toList());</span>
+    public Reservation findOverlappedReservation(int rentalItemId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+<span class="fc" id="L64">        return this.findOverlappedReservations(rentalItemId, startDateTime, endDateTime).stream()</span>
+<span class="fc" id="L65">                .findFirst()</span>
+<span class="fc" id="L66">                .orElse(null);</span>
+    }
+
+    @Override
+    public List&lt;Reservation&gt; findOverlappedReservations(LocalDateTime from, LocalDateTime to) {
+<span class="fc" id="L71">        var conditionOfPeriod = new Reservation.DateTimePeriod(from, to);</span>
+<span class="fc" id="L72">        return this.load().stream()</span>
+<span class="fc" id="L73">                .map(this.getConverter()::toEntity)</span>
+<span class="fc" id="L74">                .filter(reservation -&gt; reservation.getReservePeriod().isOverlappedBy(conditionOfPeriod))</span>
+<span class="fc" id="L75">                .collect(Collectors.toList());</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

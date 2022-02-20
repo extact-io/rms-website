@@ -109,7 +109,7 @@
 <a class="jxr_linenumber" name="L101" href="#L101">101</a> 
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>     @Override
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>     <strong class="jxr_keyword">public</strong> List&lt;RentalItem&gt; findCanRentedItemAtTerm(LocalDateTime from, LocalDateTime to) {
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>         <strong class="jxr_keyword">var</strong> reservedItemIds = reservationService.findOverlappedReservation(from, to).stream()
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>         <strong class="jxr_keyword">var</strong> reservedItemIds = reservationService.findOverlappedReservations(from, to).stream()
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>                 .map(Reservation::getRentalItemId)
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>                 .collect(Collectors.toList());
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>         <strong class="jxr_keyword">return</strong> rentalItemService.findAll().stream()

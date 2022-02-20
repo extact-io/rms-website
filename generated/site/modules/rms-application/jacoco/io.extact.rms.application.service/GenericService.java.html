@@ -1,38 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GenericService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">rms-application</a> &gt; <a href="index.source.html" class="el_package">io.extact.rms.application.service</a> &gt; <span class="el_source">GenericService.java</span></div><h1>GenericService.java</h1><pre class="source lang-java linenums">package io.extact.rms.application.service;
 
 import java.util.List;
+import java.util.function.Consumer;
 
+import io.extact.rms.application.domain.IdAccessable;
 import io.extact.rms.application.exception.BusinessFlowException;
 import io.extact.rms.application.exception.BusinessFlowException.CauseType;
 import io.extact.rms.application.persistence.GenericRepository;
 
-public interface GenericService&lt;T&gt; {
+public interface GenericService&lt;T extends IdAccessable&gt; {
 
     default T get(int id) {
-<span class="fc" id="L12">        return getRepository().get(id);</span>
+<span class="fc" id="L14">        return getRepository().get(id);</span>
     }
 
     default List&lt;T&gt; findAll() {
-<span class="fc" id="L16">        return getRepository().findAll();</span>
+<span class="fc" id="L18">        return getRepository().findAll();</span>
     }
 
-    T add(T entity);
+    default T add(T entity) {
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">        if (getDuplicateChecker() != null) {</span>
+<span class="fc" id="L23">            getDuplicateChecker().accept(entity);</span>
+        }
+<span class="fc" id="L25">        getRepository().add(entity);</span>
+<span class="fc" id="L26">        return get(entity.getId());</span>
+    }
 
     default T update(T entity) {
-<span class="fc" id="L22">        var updated = getRepository().update(entity);</span>
-<span class="fc bfc" id="L23" title="All 2 branches covered.">        if (updated == null) {</span>
-<span class="fc" id="L24">            throw new BusinessFlowException(&quot;target does not exist for id&quot;, CauseType.NOT_FOUND);</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (getRepository().get(entity.getId()) == null) {</span>
+<span class="fc" id="L31">            throw new BusinessFlowException(&quot;target does not exist for id&quot;, CauseType.NOT_FOUND);</span>
         }
-<span class="fc" id="L26">        return getRepository().update(entity);</span>
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">        if (getDuplicateChecker() != null) {</span>
+<span class="fc" id="L34">            getDuplicateChecker().accept(entity);</span>
+        }
+<span class="fc" id="L36">        return getRepository().update(entity);</span>
     }
 
     default void delete(int id) {
-<span class="fc" id="L30">        var target = getRepository().get(id);</span>
-<span class="fc bfc" id="L31" title="All 2 branches covered.">        if (target == null) {</span>
-<span class="fc" id="L32">            throw new BusinessFlowException(&quot;target does not exist for id&quot;, CauseType.NOT_FOUND);</span>
+<span class="fc" id="L40">        var target = getRepository().get(id);</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (target == null) {</span>
+<span class="fc" id="L42">            throw new BusinessFlowException(&quot;target does not exist for id&quot;, CauseType.NOT_FOUND);</span>
         }
-<span class="fc" id="L34">        getRepository().delete(target);</span>
-<span class="fc" id="L35">    }</span>
+<span class="fc" id="L44">        getRepository().delete(target);</span>
+<span class="fc" id="L45">    }</span>
+
+    default Consumer&lt;T&gt; getDuplicateChecker() {
+<span class="nc" id="L48">        return null;</span>
+    }
 
     GenericRepository&lt;T&gt; getRepository();
 }

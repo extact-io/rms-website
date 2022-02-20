@@ -224,7 +224,7 @@ public class RentalReservationResource implements WebApiSpec {
     @RolesAllowed({ MEMBER_ROLE, ADMIN_ROLE })
     @Override
     public UserAccountResourceDto getOwnUserProfile() {
-<span class="nc" id="L227">        return application.getOwnUserProfile().transform(UserAccountResourceDto::toDto);</span>
+<span class="fc" id="L227">        return application.getOwnUserProfile().transform(UserAccountResourceDto::toDto);</span>
     }
 
     @Authenticated

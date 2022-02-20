@@ -141,7 +141,7 @@
 <th>Missing Classes</th></tr>
 <tr class="b">
 <td>82</td>
-<td>11</td>
+<td>8</td>
 <td>0</td>
 <td>0</td></tr></table></section><section>
 <h2><a name="Files"></a>Files</h2>
@@ -150,58 +150,29 @@
 <th>Class</th>
 <th>Bugs</th></tr>
 <tr class="b">
-<td><a href="#io.extact.rms.application.RentalReservationApplicationImpl">io.extact.rms.application.RentalReservationApplicationImpl</a></td>
-<td>3</td></tr>
-<tr class="a">
 <td><a href="#io.extact.rms.application.common.ServiceLoginUser">io.extact.rms.application.common.ServiceLoginUser</a></td>
 <td>1</td></tr>
-<tr class="b">
+<tr class="a">
 <td><a href="#io.extact.rms.application.domain.Reservation">io.extact.rms.application.domain.Reservation</a></td>
 <td>4</td></tr>
-<tr class="a">
+<tr class="b">
 <td><a href="#io.extact.rms.application.persistence.jpa.RentalItemJpaRepository">io.extact.rms.application.persistence.jpa.RentalItemJpaRepository</a></td>
 <td>1</td></tr>
-<tr class="b">
+<tr class="a">
 <td><a href="#io.extact.rms.application.persistence.jpa.ReservationJpaRepository">io.extact.rms.application.persistence.jpa.ReservationJpaRepository</a></td>
 <td>1</td></tr>
-<tr class="a">
+<tr class="b">
 <td><a href="#io.extact.rms.application.persistence.jpa.UserAccountJpaRepository">io.extact.rms.application.persistence.jpa.UserAccountJpaRepository</a></td>
-<td>1</td></tr></table></section><a name="io.extact.rms.application.RentalReservationApplicationImpl"></a><section>
-<h3><a name="io.extact.rms.application.RentalReservationApplicationImpl"></a>io.extact.rms.application.RentalReservationApplicationImpl</h3>
-<table border="0" class="table table-striped">
-<tr class="b">
-<th>Bug</th>
-<th>Category</th>
-<th>Details</th>
-<th>Line</th>
-<th>Priority</th></tr>
-<tr class="a">
-<td>new io.extact.rms.application.RentalReservationApplicationImpl(RentalItemService, ReservationService, UserAccountService) may expose internal representation by storing an externally mutable object into RentalReservationApplicationImpl.rentalItemService</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref/io/extact/rms/application/RentalReservationApplicationImpl.html#L46">46</a></td>
-<td>Medium</td></tr>
-<tr class="b">
-<td>new io.extact.rms.application.RentalReservationApplicationImpl(RentalItemService, ReservationService, UserAccountService) may expose internal representation by storing an externally mutable object into RentalReservationApplicationImpl.reservationService</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref/io/extact/rms/application/RentalReservationApplicationImpl.html#L47">47</a></td>
-<td>Medium</td></tr>
-<tr class="a">
-<td>new io.extact.rms.application.RentalReservationApplicationImpl(RentalItemService, ReservationService, UserAccountService) may expose internal representation by storing an externally mutable object into RentalReservationApplicationImpl.userService</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref/io/extact/rms/application/RentalReservationApplicationImpl.html#L48">48</a></td>
-<td>Medium</td></tr></table></section><a name="io.extact.rms.application.common.ServiceLoginUser"></a><section>
+<td>1</td></tr></table></section><a name="io.extact.rms.application.common.ServiceLoginUser"></a><section>
 <h3><a name="io.extact.rms.application.common.ServiceLoginUser"></a>io.extact.rms.application.common.ServiceLoginUser</h3>
 <table border="0" class="table table-striped">
-<tr class="b">
+<tr class="a">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="a">
+<tr class="b">
 <td>io.extact.rms.application.common.ServiceLoginUser.getGroups() may expose internal representation by returning ServiceLoginUser.groups</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
@@ -209,31 +180,31 @@
 <td>Medium</td></tr></table></section><a name="io.extact.rms.application.domain.Reservation"></a><section>
 <h3><a name="io.extact.rms.application.domain.Reservation"></a>io.extact.rms.application.domain.Reservation</h3>
 <table border="0" class="table table-striped">
-<tr class="b">
+<tr class="a">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="a">
+<tr class="b">
 <td>io.extact.rms.application.domain.Reservation.getRentalItem() may expose internal representation by returning Reservation.rentalItem</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
 <td><a href="./xref/io/extact/rms/application/domain/Reservation.html#L74">74</a></td>
 <td>Medium</td></tr>
-<tr class="b">
+<tr class="a">
 <td>io.extact.rms.application.domain.Reservation.getUserAccount() may expose internal representation by returning Reservation.userAccount</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
 <td><a href="./xref/io/extact/rms/application/domain/Reservation.html#L71">71</a></td>
 <td>Medium</td></tr>
-<tr class="a">
+<tr class="b">
 <td>io.extact.rms.application.domain.Reservation.setRentalItem(RentalItem) may expose internal representation by storing an externally mutable object into Reservation.rentalItem</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
 <td><a href="./xref/io/extact/rms/application/domain/Reservation.html#L38">38</a></td>
 <td>Medium</td></tr>
-<tr class="b">
+<tr class="a">
 <td>io.extact.rms.application.domain.Reservation.setUserAccount(UserAccount) may expose internal representation by storing an externally mutable object into Reservation.userAccount</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
@@ -241,13 +212,13 @@
 <td>Medium</td></tr></table></section><a name="io.extact.rms.application.persistence.jpa.RentalItemJpaRepository"></a><section>
 <h3><a name="io.extact.rms.application.persistence.jpa.RentalItemJpaRepository"></a>io.extact.rms.application.persistence.jpa.RentalItemJpaRepository</h3>
 <table border="0" class="table table-striped">
-<tr class="a">
+<tr class="b">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="b">
+<tr class="a">
 <td>io.extact.rms.application.persistence.jpa.RentalItemJpaRepository.getEntityManage() may expose internal representation by returning RentalItemJpaRepository.em</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
@@ -255,27 +226,27 @@
 <td>Medium</td></tr></table></section><a name="io.extact.rms.application.persistence.jpa.ReservationJpaRepository"></a><section>
 <h3><a name="io.extact.rms.application.persistence.jpa.ReservationJpaRepository"></a>io.extact.rms.application.persistence.jpa.ReservationJpaRepository</h3>
 <table border="0" class="table table-striped">
-<tr class="a">
+<tr class="b">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="b">
+<tr class="a">
 <td>io.extact.rms.application.persistence.jpa.ReservationJpaRepository.getEntityManage() may expose internal representation by returning ReservationJpaRepository.em</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref/io/extact/rms/application/persistence/jpa/ReservationJpaRepository.html#L71">71</a></td>
+<td><a href="./xref/io/extact/rms/application/persistence/jpa/ReservationJpaRepository.html#L77">77</a></td>
 <td>Medium</td></tr></table></section><a name="io.extact.rms.application.persistence.jpa.UserAccountJpaRepository"></a><section>
 <h3><a name="io.extact.rms.application.persistence.jpa.UserAccountJpaRepository"></a>io.extact.rms.application.persistence.jpa.UserAccountJpaRepository</h3>
 <table border="0" class="table table-striped">
-<tr class="a">
+<tr class="b">
 <th>Bug</th>
 <th>Category</th>
 <th>Details</th>
 <th>Line</th>
 <th>Priority</th></tr>
-<tr class="b">
+<tr class="a">
 <td>io.extact.rms.application.persistence.jpa.UserAccountJpaRepository.getEntityManage() may expose internal representation by returning UserAccountJpaRepository.em</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
@@ -291,7 +262,7 @@
             <p>&#169;      2022
 <a href="https://github.com/extact-io/rms-website/">extact.io Co.,Ltd.</a>
         <li id="publishDate" class="pull-right">Last Published: 2022-02-20</li>
-          <li id="projectVersion" class="pull-right">Version: 1.0.0-SNAPSHOT</li>
+          <li id="projectVersion" class="pull-right">Version: 1.0.0</li>
 </p>
         </div>
       </div>

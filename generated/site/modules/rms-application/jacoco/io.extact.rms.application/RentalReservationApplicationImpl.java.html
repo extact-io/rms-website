@@ -101,7 +101,7 @@ public class RentalReservationApplicationImpl implements RentalReservationApplic
 
     @Override
     public List&lt;RentalItem&gt; findCanRentedItemAtTerm(LocalDateTime from, LocalDateTime to) {
-<span class="fc" id="L104">        var reservedItemIds = reservationService.findOverlappedReservation(from, to).stream()</span>
+<span class="fc" id="L104">        var reservedItemIds = reservationService.findOverlappedReservations(from, to).stream()</span>
 <span class="fc" id="L105">                .map(Reservation::getRentalItemId)</span>
 <span class="fc" id="L106">                .collect(Collectors.toList());</span>
 <span class="fc" id="L107">        return rentalItemService.findAll().stream()</span>
@@ -207,12 +207,12 @@ public class RentalReservationApplicationImpl implements RentalReservationApplic
 
     @Override
     public UserAccount getOwnUserProfile() throws BusinessFlowException {
-<span class="nc" id="L210">        var targetId = LoginUserUtils.get().getUserId();</span>
-<span class="nc" id="L211">        var userAccount = userService.get(targetId);</span>
-<span class="nc bnc" id="L212" title="All 2 branches missed.">        if (userAccount == null) {</span>
-<span class="nc" id="L213">            throw new BusinessFlowException(&quot;UserAccount does not exist for LoginId.&quot;, NOT_FOUND);</span>
+<span class="fc" id="L210">        var targetId = LoginUserUtils.get().getUserId();</span>
+<span class="fc" id="L211">        var userAccount = userService.get(targetId);</span>
+<span class="fc bfc" id="L212" title="All 2 branches covered.">        if (userAccount == null) {</span>
+<span class="fc" id="L213">            throw new BusinessFlowException(&quot;UserAccount does not exist for LoginId.&quot;, NOT_FOUND);</span>
         }
-<span class="nc" id="L215">        return userAccount;</span>
+<span class="fc" id="L215">        return userAccount;</span>
     }
 
     @Override

@@ -17,7 +17,7 @@
 -docencoding
 'UTF-8'
 -doctitle
-'rms-platform 1.0.0-SNAPSHOT API'
+'rms-platform 1.0.0 API'
 -linkoffline
 'https://docs.oracle.com/en/java/javase/11/docs/api' '/home/runner/work/rms/rms/rms-platform/target/javadoc-bundle-options'
 -linkoffline
@@ -25,4 +25,4 @@
 -use
 -version
 -windowtitle
-'rms-platform 1.0.0-SNAPSHOT API'
+'rms-platform 1.0.0 API'

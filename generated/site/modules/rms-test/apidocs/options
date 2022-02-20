@@ -17,10 +17,10 @@
 -docencoding
 'UTF-8'
 -doctitle
-'rms-test 1.0.0-SNAPSHOT API'
+'rms-test 1.0.0 API'
 -linkoffline
 'https://docs.oracle.com/en/java/javase/11/docs/api' '/home/runner/work/rms/rms/rms-test/target/javadoc-bundle-options'
 -use
 -version
 -windowtitle
-'rms-test 1.0.0-SNAPSHOT API'
+'rms-test 1.0.0 API'
