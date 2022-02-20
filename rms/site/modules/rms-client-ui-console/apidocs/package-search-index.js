@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"io.extact.rms.client.console"},{"l":"io.extact.rms.client.console.login"},{"l":"io.extact.rms.client.console.ui"},{"l":"io.extact.rms.client.console.ui.admin"},{"l":"io.extact.rms.client.console.ui.member"},{"l":"io.extact.rms.client.console.ui.textio"}]

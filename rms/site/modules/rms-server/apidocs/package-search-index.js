@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"io.extact.rms.external.webapi"},{"l":"io.extact.rms.external.webapi.dto"},{"l":"io.extact.rms.external.webapi.jwt"},{"l":"io.extact.rms.external.webapi.mapper"}]
