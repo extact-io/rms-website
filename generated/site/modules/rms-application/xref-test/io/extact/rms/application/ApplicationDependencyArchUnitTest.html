@@ -122,7 +122,7 @@
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L115" href="#L115">115</a> <em class="jxr_javadoccomment">     * javax.persistence.*への依存はjpaパッケージのみの定義</em>
 <a class="jxr_linenumber" name="L116" href="#L116">116</a> <em class="jxr_javadoccomment">     * &lt;pre&gt;</em>
-<a class="jxr_linenumber" name="L117" href="#L117">117</a> <em class="jxr_javadoccomment">     * ・javax.persistence.*に依存するのはpersistence.jpaパッケージとentityパッケージの2つであること</em>
+<a class="jxr_linenumber" name="L117" href="#L117">117</a> <em class="jxr_javadoccomment">     * ・javax.persistence.*に依存するのはpersistence.jpaパッケージとdomain(entity)パッケージの2つであること</em>
 <a class="jxr_linenumber" name="L118" href="#L118">118</a> <em class="jxr_javadoccomment">     * &lt;/pre&gt;</em>
 <a class="jxr_linenumber" name="L119" href="#L119">119</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>     @ArchTest
@@ -139,20 +139,20 @@
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>                         );
 <a class="jxr_linenumber" name="L132" href="#L132">132</a> 
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L134" href="#L134">134</a> <em class="jxr_javadoccomment">     * entityパッケージ内部の依存関係の定義</em>
+<a class="jxr_linenumber" name="L134" href="#L134">134</a> <em class="jxr_javadoccomment">     * domainパッケージ内部の依存関係の定義</em>
 <a class="jxr_linenumber" name="L135" href="#L135">135</a> <em class="jxr_javadoccomment">     * &lt;pre&gt;</em>
-<a class="jxr_linenumber" name="L136" href="#L136">136</a> <em class="jxr_javadoccomment">     * ・entityパッケージ直下のクラスが使ってよいライブラリは条件で定義されたモノのみ</em>
+<a class="jxr_linenumber" name="L136" href="#L136">136</a> <em class="jxr_javadoccomment">     * ・domainパッケージ直下のクラスが使ってよいライブラリは条件で定義されたモノのみ</em>
 <a class="jxr_linenumber" name="L137" href="#L137">137</a> <em class="jxr_javadoccomment">     * &lt;/pre&gt;</em>
 <a class="jxr_linenumber" name="L138" href="#L138">138</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>     @ArchTest
-<a class="jxr_linenumber" name="L140" href="#L140">140</a>     <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> ArchRule test_entityパッケージのクラスが依存してよいパッケージの定義 =
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>     <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> ArchRule test_domainパッケージのクラスが依存してよいパッケージの定義 =
 <a class="jxr_linenumber" name="L141" href="#L141">141</a>             classes()
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>                 .that()
-<a class="jxr_linenumber" name="L143" href="#L143">143</a>                     .resideInAPackage(<span class="jxr_string">"io.extact.rms.application.entity.."</span>)
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>                     .resideInAPackage(<span class="jxr_string">"io.extact.rms.application.domain.."</span>)
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>                 .should()
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>                     .onlyDependOnClassesThat()
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>                         .resideInAnyPackage(
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>                                 <span class="jxr_string">"io.extact.rms.application.entity.."</span>,
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>                                 <span class="jxr_string">"io.extact.rms.application.domain.."</span>,
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>                                 <span class="jxr_string">"org.apache.commons.lang3.."</span>,
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>                                 <span class="jxr_string">"javax.persistence.."</span>,
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>                                 <span class="jxr_string">"javax.validation.."</span>,
