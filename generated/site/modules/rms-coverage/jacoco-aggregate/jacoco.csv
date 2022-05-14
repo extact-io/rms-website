@@ -152,12 +152,12 @@ rms-coverage/rms-server,io.extact.rms.external.webapi.mapper,ServerExceptionMapp
 rms-coverage/rms-server,io.extact.rms.external.webapi.dto,AddRentalItemDto,0,23,0,0,0,5,0,6,0,6
 rms-coverage/rms-server,io.extact.rms.external.webapi.dto,UserAccountResourceDto,2,111,1,1,1,23,1,18,0,18
 rms-coverage/rms-server,io.extact.rms.external.webapi.dto,RentalItemResourceDto,2,56,1,1,1,13,1,10,0,10
-rms-coverage/rms-server,io.extact.rms.external.webapi.dto,LoginDto,0,32,0,0,0,5,0,7,0,7
 rms-coverage/rms-server,io.extact.rms.external.webapi.dto,ReservationResourceDto,12,137,5,5,3,28,5,20,0,20
+rms-coverage/rms-server,io.extact.rms.external.webapi.dto,LoginDto,0,32,0,0,0,5,0,7,0,7
 rms-coverage/rms-server,io.extact.rms.external.webapi.dto,AddReservationDto,0,50,0,0,0,8,0,12,0,12
 rms-coverage/rms-server,io.extact.rms.external.webapi.dto,AddUserAccountDto,0,59,0,0,0,9,0,14,0,14
-rms-coverage/rms-client-ui-console,io.extact.rms.client.console.ui.member,ReserveRentalItemScreen,130,0,4,0,40,0,6,0,4,0
 rms-coverage/rms-client-ui-console,io.extact.rms.client.console.ui.member,MemberMainScreen,20,0,0,0,5,0,2,0,2,0
+rms-coverage/rms-client-ui-console,io.extact.rms.client.console.ui.member,ReserveRentalItemScreen,130,0,4,0,40,0,6,0,4,0
 rms-coverage/rms-client-ui-console,io.extact.rms.client.console.ui.member,MemberMainScreen.MemberMenuList,81,0,0,0,8,0,4,0,4,0
 rms-coverage/rms-client-ui-console,io.extact.rms.client.console.ui.member,CancelReservationScreen,92,0,6,0,33,0,7,0,4,0
 rms-coverage/rms-client-ui-console,io.extact.rms.client.console.ui.member,InquiryReservationScreen,110,0,4,0,33,0,7,0,5,0
