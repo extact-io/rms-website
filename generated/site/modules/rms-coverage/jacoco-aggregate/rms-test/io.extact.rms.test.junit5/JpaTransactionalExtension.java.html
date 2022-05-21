@@ -17,7 +17,6 @@ import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
-import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.junit.jupiter.api.extension.ExtensionContext.Store;
@@ -43,7 +42,7 @@ import org.junit.platform.commons.support.AnnotationSupport;
  *   }
  * &lt;/pre&gt;
  */
-<span class="fc" id="L46">public class JpaTransactionalExtension implements Extension,</span>
+<span class="fc" id="L45">public class JpaTransactionalExtension implements </span>
         BeforeAllCallback, AfterAllCallback, BeforeEachCallback, AfterEachCallback,
         BeforeTestExecutionCallback, AfterTestExecutionCallback, ParameterResolver {
 
@@ -56,44 +55,44 @@ import org.junit.platform.commons.support.AnnotationSupport;
 
     @Override
     public void beforeAll(ExtensionContext context) {
-<span class="fc" id="L59">        var unitName = geTragetUnitName();</span>
-<span class="fc" id="L60">        var properties = getPersistenceProperties();</span>
-<span class="fc" id="L61">        var emf = Persistence.createEntityManagerFactory(unitName, properties);</span>
-<span class="fc" id="L62">        getEntityManagerFactoryStore(context).put(CURRENT_ENTITY_FACTORY, new CloseableWrapper(emf));</span>
-<span class="fc" id="L63">    }</span>
+<span class="fc" id="L58">        var unitName = geTragetUnitName();</span>
+<span class="fc" id="L59">        var properties = getPersistenceProperties();</span>
+<span class="fc" id="L60">        var emf = Persistence.createEntityManagerFactory(unitName, properties);</span>
+<span class="fc" id="L61">        getEntityManagerFactoryStore(context).put(CURRENT_ENTITY_FACTORY, new CloseableWrapper(emf));</span>
+<span class="fc" id="L62">    }</span>
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-<span class="fc" id="L67">        EntityManagerFactory emf = getEntityManagerFactoryStore(context).get(CURRENT_ENTITY_FACTORY, CloseableWrapper.class).unwrap();</span>
-<span class="fc" id="L68">        getEntityManagerStore(context).put(CURRENT_ENTITY_MANAGER, new CloseableWrapper(emf.createEntityManager()));</span>
-<span class="fc" id="L69">    }</span>
+<span class="fc" id="L66">        EntityManagerFactory emf = getEntityManagerFactoryStore(context).get(CURRENT_ENTITY_FACTORY, CloseableWrapper.class).unwrap();</span>
+<span class="fc" id="L67">        getEntityManagerStore(context).put(CURRENT_ENTITY_MANAGER, new CloseableWrapper(emf.createEntityManager()));</span>
+<span class="fc" id="L68">    }</span>
 
     @Override
     public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) {
-<span class="pc bpc" id="L73" title="1 of 2 branches missed.">        return parameterContext.getParameter().getType() == EntityManager.class;</span>
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">        return parameterContext.getParameter().getType() == EntityManager.class;</span>
     }
 
     @Override
     public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) {
-<span class="fc" id="L78">        return getEntityManagerStore(extensionContext).get(CURRENT_ENTITY_MANAGER, CloseableWrapper.class).unwrap();</span>
+<span class="fc" id="L77">        return getEntityManagerStore(extensionContext).get(CURRENT_ENTITY_MANAGER, CloseableWrapper.class).unwrap();</span>
     }
 
     @Override
     public void beforeTestExecution(ExtensionContext context) throws Exception {
-<span class="pc bpc" id="L83" title="1 of 2 branches missed.">        if (!AnnotationSupport.isAnnotated(context.getTestClass(), TransactionalForTest.class)</span>
-<span class="fc bfc" id="L84" title="All 2 branches covered.">                &amp;&amp; !AnnotationSupport.isAnnotated(context.getTestMethod(), TransactionalForTest.class)) {</span>
-<span class="fc" id="L85">            return;</span>
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">        if (!AnnotationSupport.isAnnotated(context.getTestClass(), TransactionalForTest.class)</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">                &amp;&amp; !AnnotationSupport.isAnnotated(context.getTestMethod(), TransactionalForTest.class)) {</span>
+<span class="fc" id="L84">            return;</span>
         }
 
-<span class="fc" id="L88">        EntityManager em = getEntityManagerStore(context).get(CURRENT_ENTITY_MANAGER, CloseableWrapper.class).unwrap();</span>
-<span class="pc bpc" id="L89" title="1 of 2 branches missed.">        if (em == null) {</span>
-<span class="nc" id="L90">            throw new IllegalStateException(&quot;EntityManage is unset.&quot;);</span>
+<span class="fc" id="L87">        EntityManager em = getEntityManagerStore(context).get(CURRENT_ENTITY_MANAGER, CloseableWrapper.class).unwrap();</span>
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">        if (em == null) {</span>
+<span class="nc" id="L89">            throw new IllegalStateException(&quot;EntityManage is unset.&quot;);</span>
         }
 
-<span class="fc" id="L93">        var tx = em.getTransaction();</span>
-<span class="fc" id="L94">        tx.begin();</span>
-<span class="fc" id="L95">        getEntityManagerStore(context).put(CURRENT_ENTITY_TRANSACTION, tx);</span>
-<span class="fc" id="L96">    }</span>
+<span class="fc" id="L92">        var tx = em.getTransaction();</span>
+<span class="fc" id="L93">        tx.begin();</span>
+<span class="fc" id="L94">        getEntityManagerStore(context).put(CURRENT_ENTITY_TRANSACTION, tx);</span>
+<span class="fc" id="L95">    }</span>
 
 
     // ----------------------------------------------------- after methods
@@ -101,55 +100,55 @@ import org.junit.platform.commons.support.AnnotationSupport;
     @Override
     public void afterTestExecution(ExtensionContext context) {
         // Give priority to Method Annotation
-<span class="fc" id="L104">        TransactionalForTest transactionalTest = AnnotationSupport</span>
-<span class="fc" id="L105">                    .findAnnotation(context.getRequiredTestMethod(), TransactionalForTest.class)</span>
-<span class="fc" id="L106">                .orElse(AnnotationSupport.findAnnotation(context.getRequiredTestClass(), TransactionalForTest.class).orElse(null));</span>
-<span class="fc bfc" id="L107" title="All 2 branches covered.">        if (transactionalTest == null) {</span>
-<span class="fc" id="L108">            return;</span>
+<span class="fc" id="L103">        TransactionalForTest transactionalTest = AnnotationSupport</span>
+<span class="fc" id="L104">                    .findAnnotation(context.getRequiredTestMethod(), TransactionalForTest.class)</span>
+<span class="fc" id="L105">                .orElse(AnnotationSupport.findAnnotation(context.getRequiredTestClass(), TransactionalForTest.class).orElse(null));</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">        if (transactionalTest == null) {</span>
+<span class="fc" id="L107">            return;</span>
         }
 
-<span class="fc" id="L111">        var tx = getEntityManagerStore(context).remove(CURRENT_ENTITY_TRANSACTION, EntityTransaction.class);</span>
-<span class="pc bpc" id="L112" title="1 of 2 branches missed.">        if (transactionalTest.shouldCommit()) {</span>
-<span class="nc" id="L113">            tx.commit();</span>
+<span class="fc" id="L110">        var tx = getEntityManagerStore(context).remove(CURRENT_ENTITY_TRANSACTION, EntityTransaction.class);</span>
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">        if (transactionalTest.shouldCommit()) {</span>
+<span class="nc" id="L112">            tx.commit();</span>
         } else {
-<span class="fc" id="L115">            tx.rollback();</span>
+<span class="fc" id="L114">            tx.rollback();</span>
         }
-<span class="fc" id="L117">    }</span>
+<span class="fc" id="L116">    }</span>
 
     @Override
     public void afterEach(ExtensionContext context) {
-<span class="fc" id="L121">        getEntityManagerStore(context).remove(CURRENT_ENTITY_MANAGER, CloseableWrapper.class).close();</span>
-<span class="fc" id="L122">    }</span>
+<span class="fc" id="L120">        getEntityManagerStore(context).remove(CURRENT_ENTITY_MANAGER, CloseableWrapper.class).close();</span>
+<span class="fc" id="L121">    }</span>
 
     @Override
     public void afterAll(ExtensionContext context) {
-<span class="fc" id="L126">        getEntityManagerFactoryStore(context).remove(CURRENT_ENTITY_FACTORY, CloseableWrapper.class).close();</span>
-<span class="fc" id="L127">    }</span>
+<span class="fc" id="L125">        getEntityManagerFactoryStore(context).remove(CURRENT_ENTITY_FACTORY, CloseableWrapper.class).close();</span>
+<span class="fc" id="L126">    }</span>
 
 
     // ----------------------------------------------------- private methods
 
     private String geTragetUnitName() {
-<span class="fc" id="L133">        return ConfigProvider.getConfig().getValue(&quot;test.db.connection.unitname&quot;, String.class);</span>
+<span class="fc" id="L132">        return ConfigProvider.getConfig().getValue(&quot;test.db.connection.unitname&quot;, String.class);</span>
     }
 
     private Map&lt;String, String&gt; getPersistenceProperties() {
-<span class="fc" id="L137">        var config = ConfigProvider.getConfig();</span>
-<span class="fc" id="L138">        var keys = StreamSupport.stream(config.getPropertyNames().spliterator(), false)</span>
-<span class="fc" id="L139">                .filter(key -&gt; key.startsWith(&quot;test.db.connection.properties.&quot;))</span>
-<span class="fc" id="L140">                .collect(Collectors.toList());</span>
-<span class="fc" id="L141">        return keys.stream().collect(Collectors.toMap(</span>
-<span class="fc" id="L142">                    key -&gt; StringUtils.remove(key, &quot;test.db.connection.properties.&quot;), // prop-key</span>
-<span class="fc" id="L143">                    key -&gt; config.getValue(key, String.class) // prop-value</span>
+<span class="fc" id="L136">        var config = ConfigProvider.getConfig();</span>
+<span class="fc" id="L137">        var keys = StreamSupport.stream(config.getPropertyNames().spliterator(), false)</span>
+<span class="fc" id="L138">                .filter(key -&gt; key.startsWith(&quot;test.db.connection.properties.&quot;))</span>
+<span class="fc" id="L139">                .collect(Collectors.toList());</span>
+<span class="fc" id="L140">        return keys.stream().collect(Collectors.toMap(</span>
+<span class="fc" id="L141">                    key -&gt; StringUtils.remove(key, &quot;test.db.connection.properties.&quot;), // prop-key</span>
+<span class="fc" id="L142">                    key -&gt; config.getValue(key, String.class) // prop-value</span>
                 ));
     }
 
     private Store getEntityManagerFactoryStore(ExtensionContext context) {
-<span class="fc" id="L148">        return context.getStore(Namespace.create(context.getRequiredTestClass()));</span>
+<span class="fc" id="L147">        return context.getStore(Namespace.create(context.getRequiredTestClass()));</span>
     }
 
     private Store getEntityManagerStore(ExtensionContext context) {
-<span class="fc" id="L152">        return context.getStore(Namespace.create(getClass(), context.getRequiredTestMethod()));</span>
+<span class="fc" id="L151">        return context.getStore(Namespace.create(getClass(), context.getRequiredTestMethod()));</span>
     }
 
 
@@ -158,32 +157,32 @@ import org.junit.platform.commons.support.AnnotationSupport;
     static class CloseableWrapper implements Store.CloseableResource {
         private Object org;
 
-<span class="fc" id="L161">        public CloseableWrapper(EntityManagerFactory closeable) {</span>
-<span class="fc" id="L162">            this.org = closeable;</span>
-<span class="fc" id="L163">        }</span>
-<span class="fc" id="L164">        public CloseableWrapper(EntityManager closeable) {</span>
-<span class="fc" id="L165">            this.org = closeable;</span>
-<span class="fc" id="L166">        }</span>
+<span class="fc" id="L160">        public CloseableWrapper(EntityManagerFactory closeable) {</span>
+<span class="fc" id="L161">            this.org = closeable;</span>
+<span class="fc" id="L162">        }</span>
+<span class="fc" id="L163">        public CloseableWrapper(EntityManager closeable) {</span>
+<span class="fc" id="L164">            this.org = closeable;</span>
+<span class="fc" id="L165">        }</span>
 
         @Override
         public void close() {
-<span class="fc bfc" id="L170" title="All 2 branches covered.">            if (org instanceof EntityManagerFactory) {</span>
-<span class="fc" id="L171">                var closeable = (EntityManagerFactory) org;</span>
-<span class="pc bpc" id="L172" title="1 of 2 branches missed.">                if (closeable.isOpen()) {</span>
-<span class="fc" id="L173">                    closeable.close();</span>
+<span class="fc bfc" id="L169" title="All 2 branches covered.">            if (org instanceof EntityManagerFactory) {</span>
+<span class="fc" id="L170">                var closeable = (EntityManagerFactory) org;</span>
+<span class="pc bpc" id="L171" title="1 of 2 branches missed.">                if (closeable.isOpen()) {</span>
+<span class="fc" id="L172">                    closeable.close();</span>
                 }
             }
-<span class="fc bfc" id="L176" title="All 2 branches covered.">            if (org instanceof EntityManager) {</span>
-<span class="fc" id="L177">                var closeable = (EntityManager) org;</span>
-<span class="pc bpc" id="L178" title="1 of 2 branches missed.">                if (closeable.isOpen()) {</span>
-<span class="fc" id="L179">                    closeable.close();</span>
+<span class="fc bfc" id="L175" title="All 2 branches covered.">            if (org instanceof EntityManager) {</span>
+<span class="fc" id="L176">                var closeable = (EntityManager) org;</span>
+<span class="pc bpc" id="L177" title="1 of 2 branches missed.">                if (closeable.isOpen()) {</span>
+<span class="fc" id="L178">                    closeable.close();</span>
                 }
             }
-<span class="fc" id="L182">        }</span>
+<span class="fc" id="L181">        }</span>
         @SuppressWarnings(&quot;unchecked&quot;)
         public &lt;T&gt; T unwrap() {
-<span class="fc" id="L185">            return (T) org;</span>
+<span class="fc" id="L184">            return (T) org;</span>
         }
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

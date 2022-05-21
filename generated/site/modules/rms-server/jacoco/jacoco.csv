@@ -18,7 +18,7 @@ rms-server,io.extact.rms.external.webapi.mapper,ServerExceptionMapperFeature,0,2
 rms-server,io.extact.rms.external.webapi.dto,AddRentalItemDto,0,23,0,0,0,5,0,6,0,6
 rms-server,io.extact.rms.external.webapi.dto,UserAccountResourceDto,2,111,1,1,1,23,1,18,0,18
 rms-server,io.extact.rms.external.webapi.dto,RentalItemResourceDto,2,56,1,1,1,13,1,10,0,10
-rms-server,io.extact.rms.external.webapi.dto,ReservationResourceDto,12,137,5,5,3,28,5,20,0,20
 rms-server,io.extact.rms.external.webapi.dto,LoginDto,11,21,0,0,2,3,3,4,3,4
+rms-server,io.extact.rms.external.webapi.dto,ReservationResourceDto,12,137,5,5,3,28,5,20,0,20
 rms-server,io.extact.rms.external.webapi.dto,AddReservationDto,0,50,0,0,0,8,0,12,0,12
 rms-server,io.extact.rms.external.webapi.dto,AddUserAccountDto,0,59,0,0,0,9,0,14,0,14

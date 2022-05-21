@@ -2,8 +2,8 @@ GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_
 rms-client-api,io.extact.rms.client.api.login,LoggedInEvent,9,0,0,0,2,0,2,0,2,0
 rms-client-api,io.extact.rms.client.api.login,JsonWebTokenConsumeEvent,9,0,0,0,4,0,2,0,2,0
 rms-client-api,io.extact.rms.client.api.dto,Convertable,4,0,0,0,1,0,1,0,1,0
-rms-client-api,io.extact.rms.client.api.dto,UserAccountClientDto.ClientUserType,45,0,0,0,11,0,4,0,4,0
 rms-client-api,io.extact.rms.client.api.dto,UserAccountClientDto,105,0,0,0,13,0,20,0,20,0
+rms-client-api,io.extact.rms.client.api.dto,UserAccountClientDto.ClientUserType,45,0,0,0,11,0,4,0,4,0
 rms-client-api,io.extact.rms.client.api.dto,RentalItemClientDto,52,0,0,0,8,0,11,0,11,0
 rms-client-api,io.extact.rms.client.api.dto,ReservationClientDto,112,0,0,0,13,0,21,0,21,0
 rms-client-api,io.extact.rms.client.api.exception,RentalReservationClientException,10,0,0,0,4,0,2,0,2,0
