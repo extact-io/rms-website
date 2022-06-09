@@ -42,7 +42,7 @@ import org.junit.platform.commons.support.AnnotationSupport;
  *   }
  * &lt;/pre&gt;
  */
-<span class="fc" id="L45">public class JpaTransactionalExtension implements </span>
+<span class="fc" id="L45">public class JpaTransactionalExtension implements</span>
         BeforeAllCallback, AfterAllCallback, BeforeEachCallback, AfterEachCallback,
         BeforeTestExecutionCallback, AfterTestExecutionCallback, ParameterResolver {
 
@@ -136,7 +136,7 @@ import org.junit.platform.commons.support.AnnotationSupport;
 <span class="fc" id="L136">        var config = ConfigProvider.getConfig();</span>
 <span class="fc" id="L137">        var keys = StreamSupport.stream(config.getPropertyNames().spliterator(), false)</span>
 <span class="fc" id="L138">                .filter(key -&gt; key.startsWith(&quot;test.db.connection.properties.&quot;))</span>
-<span class="fc" id="L139">                .collect(Collectors.toList());</span>
+<span class="fc" id="L139">                .toList();</span>
 <span class="fc" id="L140">        return keys.stream().collect(Collectors.toMap(</span>
 <span class="fc" id="L141">                    key -&gt; StringUtils.remove(key, &quot;test.db.connection.properties.&quot;), // prop-key</span>
 <span class="fc" id="L142">                    key -&gt; config.getValue(key, String.class) // prop-value</span>

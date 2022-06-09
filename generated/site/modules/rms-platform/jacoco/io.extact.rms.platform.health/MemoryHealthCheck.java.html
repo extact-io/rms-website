@@ -89,13 +89,11 @@ public class MemoryHealthCheck {
         boolean liveness(MemoryUsage memoryUsage);
 
         static MemoryLivenessEvaluator of(String method, long threshold) {
-<span class="fc bfc" id="L92" title="All 2 branches covered.">            switch (method) {</span>
-            case &quot;abs&quot;:
-<span class="fc" id="L94">                return new EvaluateHolder(&quot;abs&quot;, absoluteFunction, threshold);</span>
-            case &quot;rel&quot;:
-            default:
-<span class="fc" id="L97">                return new EvaluateHolder(&quot;rel&quot;, relativeFunction, threshold);</span>
-            }
+<span class="pc bpc" id="L92" title="1 of 3 branches missed.">            return switch (method) {</span>
+<span class="fc" id="L93">                case &quot;abs&quot; -&gt; new EvaluateHolder(&quot;abs&quot;, absoluteFunction, threshold);</span>
+<span class="fc" id="L94">                case &quot;rel&quot; -&gt; new EvaluateHolder(&quot;rel&quot;, relativeFunction, threshold);</span>
+<span class="nc" id="L95">                default -&gt; new EvaluateHolder(&quot;rel&quot;, relativeFunction, threshold);</span>
+            };
         }
     }
 
@@ -105,29 +103,29 @@ public class MemoryHealthCheck {
         MemoryUsageFunction func;
         long threshold;
 
-<span class="fc" id="L108">        EvaluateHolder(String name, MemoryUsageFunction func, long threshold) {</span>
-<span class="fc" id="L109">            this.name = name;</span>
-<span class="fc" id="L110">            this.func = func;</span>
-<span class="fc" id="L111">            this.threshold = threshold;</span>
-<span class="fc" id="L112">        }</span>
+<span class="fc" id="L106">        EvaluateHolder(String name, MemoryUsageFunction func, long threshold) {</span>
+<span class="fc" id="L107">            this.name = name;</span>
+<span class="fc" id="L108">            this.func = func;</span>
+<span class="fc" id="L109">            this.threshold = threshold;</span>
+<span class="fc" id="L110">        }</span>
 
         @Override
         public String name() {
-<span class="fc" id="L116">            return name;</span>
+<span class="fc" id="L114">            return name;</span>
         }
         @Override
         public long threshold() {
-<span class="fc" id="L120">            return threshold;</span>
+<span class="fc" id="L118">            return threshold;</span>
         }
         @Override
         public boolean liveness(MemoryUsage memoryUsage) {
-<span class="fc" id="L124">            return func.evaluate(memoryUsage, threshold);</span>
+<span class="fc" id="L122">            return func.evaluate(memoryUsage, threshold);</span>
         }
     }
 
     interface MemoryUsageFunction extends BiFunction&lt;MemoryUsage, Long, Boolean&gt; {
         default boolean evaluate(MemoryUsage memoryUsage, long threshold) {
-<span class="fc" id="L130">            return apply(memoryUsage, threshold);</span>
+<span class="fc" id="L128">            return apply(memoryUsage, threshold);</span>
         }
     }
 

@@ -11,8 +11,6 @@ import javax.inject.Inject;
 
 import org.eclipse.microprofile.config.Config;
 
-import lombok.extern.slf4j.Slf4j;
-
 import io.extact.rms.application.domain.RentalItem;
 import io.extact.rms.application.domain.Reservation;
 import io.extact.rms.application.domain.UserAccount;
@@ -22,17 +20,18 @@ import io.extact.rms.application.persistence.file.converter.ReservationArrayConv
 import io.extact.rms.application.persistence.file.converter.UserAccountArrayConverter;
 import io.extact.rms.application.persistence.file.io.FileAccessor;
 import io.extact.rms.application.persistence.file.io.PathResolver;
+import lombok.extern.slf4j.Slf4j;
 
 @Dependent
-<span class="fc" id="L27">@Slf4j</span>
-<span class="fc" id="L28">public class FileRepositoryInitializeProducers {</span>
+<span class="fc" id="L26">@Slf4j</span>
+<span class="fc" id="L27">public class FileRepositoryInitializeProducers {</span>
 
     // config value is &quot;permanent&quot; or &quot;temporary&quot;
     private static final String FILE_TYPE_CONFIG_KEY = &quot;csv.type&quot;;
     // samaple key is &quot;csv-file.permanent.file_name.reservation = reservation.csv&quot;
     private static final String FILE_NAME_CONFIG_KEY_FORMAT = &quot;csv.%s.fileName.%s&quot;;
 
-<span class="fc" id="L35">    private static final Map&lt;Class&lt;?&gt;, String&gt; FILE_NAME_TYPE_CONFIG_KEY_MAP = Map.of(</span>
+<span class="fc" id="L34">    private static final Map&lt;Class&lt;?&gt;, String&gt; FILE_NAME_TYPE_CONFIG_KEY_MAP = Map.of(</span>
                 RentalItemFileRepository.class, &quot;rentalitem&quot;,
                 ReservationFileRepository.class, &quot;reservation&quot;,
                 UserAccountFileRepository.class, &quot;useraccount&quot;
@@ -45,46 +44,40 @@ import io.extact.rms.application.persistence.file.io.PathResolver;
     public FileAccessor creteFileAccessor(InjectionPoint injectionPoint) throws IOException {
 
         // 1%sの文字列取得
-<span class="fc" id="L48">        var fileType = config.getValue(FILE_TYPE_CONFIG_KEY, String.class);</span>
+<span class="fc" id="L47">        var fileType = config.getValue(FILE_TYPE_CONFIG_KEY, String.class);</span>
 
         // 2%sの文字列取得
-<span class="fc" id="L51">        Class&lt;?&gt; beanClass = injectionPoint.getBean().getBeanClass();</span>
-<span class="fc" id="L52">        var fileNameTypeConfigKey = FILE_NAME_TYPE_CONFIG_KEY_MAP.get(beanClass);</span>
+<span class="fc" id="L50">        Class&lt;?&gt; beanClass = injectionPoint.getBean().getBeanClass();</span>
+<span class="fc" id="L51">        var fileNameTypeConfigKey = FILE_NAME_TYPE_CONFIG_KEY_MAP.get(beanClass);</span>
 
         // ファイル名のConfigKeyの決定
-<span class="fc" id="L55">        var fileNameConfigKey = String.format(FILE_NAME_CONFIG_KEY_FORMAT, fileType, fileNameTypeConfigKey);</span>
-<span class="fc" id="L56">        var fileName = config.getValue(fileNameConfigKey, String.class);</span>
+<span class="fc" id="L54">        var fileNameConfigKey = String.format(FILE_NAME_CONFIG_KEY_FORMAT, fileType, fileNameTypeConfigKey);</span>
+<span class="fc" id="L55">        var fileName = config.getValue(fileNameConfigKey, String.class);</span>
 
         // フィルパスの取得
-        Path filePath;
-<span class="pc bpc" id="L60" title="1 of 3 branches missed.">        switch (fileType) {</span>
-            case &quot;permanent&quot;:
-<span class="fc" id="L62">                filePath = new PathResolver.FixedDirPathResolver().resolve(fileName);</span>
-<span class="fc" id="L63">                break;</span>
-            case &quot;temporary&quot;:
-<span class="fc" id="L65">                filePath =  FileAccessor.copyResourceToRealPath(fileName, new PathResolver.TempDirPathResolver());</span>
-<span class="fc" id="L66">                break;</span>
-            default:
-<span class="nc" id="L68">                throw new IllegalArgumentException(&quot;unknown fileType -&gt; &quot; + fileType);</span>
-        }
-<span class="fc" id="L70">        log.info(&quot;[{}]モードでファイルをオープンしました。PATH={}&quot;, fileType, filePath);</span>
+<span class="pc bpc" id="L58" title="1 of 3 branches missed.">        Path filePath = switch (fileType) {</span>
+<span class="fc" id="L59">            case &quot;permanent&quot; -&gt; new PathResolver.FixedDirPathResolver().resolve(fileName);</span>
+<span class="fc" id="L60">            case &quot;temporary&quot; -&gt; FileAccessor.copyResourceToRealPath(fileName, new PathResolver.TempDirPathResolver());</span>
+<span class="pc" id="L61">            default -&gt; throw new IllegalArgumentException(&quot;unknown fileType -&gt; &quot; + fileType);</span>
+        };
+<span class="fc" id="L63">        log.info(&quot;[{}]モードでファイルをオープンしました。PATH={}&quot;, fileType, filePath);</span>
 
-<span class="fc" id="L72">        return new FileAccessor(filePath);</span>
+<span class="fc" id="L65">        return new FileAccessor(filePath);</span>
     }
 
     @Produces
     public EntityArrayConverter&lt;RentalItem&gt; createRentalItemConverter(InjectionPoint injectionPoint) {
-<span class="fc" id="L77">        return RentalItemArrayConverter.INSTANCE;</span>
+<span class="fc" id="L70">        return RentalItemArrayConverter.INSTANCE;</span>
     }
 
     @Produces
     public EntityArrayConverter&lt;Reservation&gt; createReservationConverter(InjectionPoint injectionPoint) {
-<span class="fc" id="L82">        return ReservationArrayConverter.INSTANCE;</span>
+<span class="fc" id="L75">        return ReservationArrayConverter.INSTANCE;</span>
     }
 
     @Produces
     public EntityArrayConverter&lt;UserAccount&gt; createUserAccoutConverter(InjectionPoint injectionPoint) {
-<span class="fc" id="L87">        return UserAccountArrayConverter.INSTANCE;</span>
+<span class="fc" id="L80">        return UserAccountArrayConverter.INSTANCE;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

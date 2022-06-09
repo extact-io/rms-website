@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import org.eclipse.microprofile.config.spi.ConfigSource;
 import org.eclipse.microprofile.config.spi.ConfigSourceProvider;
@@ -17,24 +16,24 @@ import io.extact.rms.platform.util.ResourceUtils;
  * Also, since this class is instantiated by ServiceLoader, if you want to use it,
  * define this class in `META-INF/services/org.eclipse.microprofile.config.spi.ConfigSourceProvider`&lt;br&gt;
  */
-<span class="fc" id="L20">public class ResourcePathUnderConfigProvider implements ConfigSourceProvider {</span>
+<span class="fc" id="L19">public class ResourcePathUnderConfigProvider implements ConfigSourceProvider {</span>
 
     public static final String CONFIG_RESOURCE_PATH = &quot;mpconfig&quot;;
-<span class="fc" id="L23">    public static final List&lt;String&gt; SUPPROTED_CONFIG_TYPE = List.of(&quot;.properties&quot;, &quot;yaml&quot;);</span>
-<span class="fc" id="L24">    public static final Predicate&lt;Object&gt; SUPPROTED_CONFIG_FILTER = (fileName) -&gt; SUPPROTED_CONFIG_TYPE.stream()</span>
-<span class="fc" id="L25">            .anyMatch(type -&gt; fileName.toString().endsWith(type));</span>
+<span class="fc" id="L22">    public static final List&lt;String&gt; SUPPROTED_CONFIG_TYPE = List.of(&quot;.properties&quot;, &quot;yaml&quot;);</span>
+<span class="fc" id="L23">    public static final Predicate&lt;Object&gt; SUPPROTED_CONFIG_FILTER = (fileName) -&gt; SUPPROTED_CONFIG_TYPE.stream()</span>
+<span class="fc" id="L24">            .anyMatch(type -&gt; fileName.toString().endsWith(type));</span>
 
     @Override
     public Iterable&lt;ConfigSource&gt; getConfigSources(ClassLoader classLoader) {
         List&lt;URL&gt; configUrls;
         try {
-<span class="fc" id="L31">            configUrls = ResourceUtils.findResoucePathUnder(CONFIG_RESOURCE_PATH, SUPPROTED_CONFIG_FILTER, classLoader);</span>
-<span class="nc" id="L32">        } catch (IOException e) {</span>
-<span class="nc" id="L33">            throw new IllegalStateException(e);</span>
-<span class="fc" id="L34">        }</span>
-<span class="fc" id="L35">        return configUrls.stream()</span>
-<span class="fc" id="L36">                    .map(url -&gt; MpConfigFactory.newInstance().createFromUrl(url))</span>
-<span class="fc" id="L37">                    .collect(Collectors.toList());</span>
+<span class="fc" id="L30">            configUrls = ResourceUtils.findResoucePathUnder(CONFIG_RESOURCE_PATH, SUPPROTED_CONFIG_FILTER, classLoader);</span>
+<span class="nc" id="L31">        } catch (IOException e) {</span>
+<span class="nc" id="L32">            throw new IllegalStateException(e);</span>
+<span class="fc" id="L33">        }</span>
+<span class="fc" id="L34">        return configUrls.stream()</span>
+<span class="fc" id="L35">                    .map(url -&gt; MpConfigFactory.newInstance().createFromUrl(url))</span>
+<span class="fc" id="L36">                    .toList();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

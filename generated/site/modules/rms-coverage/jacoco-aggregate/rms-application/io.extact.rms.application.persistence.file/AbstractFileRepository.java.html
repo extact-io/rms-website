@@ -48,7 +48,7 @@ public class AbstractFileRepository&lt;T extends Transformable &amp; IdAccessabl
     public List&lt;T&gt; findAll() {
 <span class="fc" id="L49">        return load().stream()</span>
 <span class="fc" id="L50">                .map(entityConverter::toEntity)</span>
-<span class="fc" id="L51">                .collect(Collectors.toList());</span>
+<span class="fc" id="L51">                .toList();</span>
     }
 
     @ValidateParam
@@ -72,7 +72,7 @@ public class AbstractFileRepository&lt;T extends Transformable &amp; IdAccessabl
                     }
 <span class="fc" id="L73">                    return items;</span>
                 })
-<span class="fc" id="L75">                .collect(Collectors.toList());</span>
+<span class="fc" id="L75">                .toList();</span>
 <span class="fc bfc" id="L76" title="All 2 branches covered.">        if (!replaced.get()) {</span>
 <span class="fc" id="L77">            return null;</span>
         }
@@ -103,7 +103,7 @@ public class AbstractFileRepository&lt;T extends Transformable &amp; IdAccessabl
     public void delete(Integer id) {
 <span class="fc" id="L104">        var excludedData = load().stream()</span>
 <span class="fc bfc" id="L105" title="All 2 branches covered.">                .filter(items -&gt; Integer.parseInt(items[0])  != id) // numberはpos:0は共通</span>
-<span class="fc" id="L106">                .collect(Collectors.toList());</span>
+<span class="fc" id="L106">                .toList();</span>
 <span class="fc" id="L107">        saveAll(excludedData);</span>
 <span class="fc" id="L108">    }</span>
 

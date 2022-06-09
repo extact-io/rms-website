@@ -55,7 +55,7 @@
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>              filters = StreamSupport.stream(config.getPropertyNames().spliterator(), false)
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>                      .filter(s -&gt; s.startsWith(<span class="jxr_string">"configdump.filters"</span>))
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>                      .map(s -&gt; config.getValue(s, String.<strong class="jxr_keyword">class</strong>))
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>                      .collect(Collectors.toList());
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>                      .toList();
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>          }
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>          Predicate&lt;String&gt; containsForwardMatch = <strong class="jxr_keyword">new</strong> ContainsForwardMatch(filters);

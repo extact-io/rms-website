@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"io.extact.rms.client.api"},{"l":"io.extact.rms.client.api.dto"},{"l":"io.extact.rms.client.api.exception"},{"l":"io.extact.rms.client.api.login"}]
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"io.extact.rms.client.api"},{"l":"io.extact.rms.client.api.dto"},{"l":"io.extact.rms.client.api.exception"},{"l":"io.extact.rms.client.api.login"}];updateSearchResults();

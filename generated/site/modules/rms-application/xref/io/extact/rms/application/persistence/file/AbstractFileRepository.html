@@ -56,7 +56,7 @@
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">public</strong> List&lt;T&gt; findAll() {
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          <strong class="jxr_keyword">return</strong> load().stream()
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>                  .map(entityConverter::toEntity)
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>                  .collect(Collectors.toList());
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>                  .toList();
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>      }
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>      @ValidateParam
@@ -80,7 +80,7 @@
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>                      }
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>                      <strong class="jxr_keyword">return</strong> items;
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>                  })
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>                  .collect(Collectors.toList());
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>                  .toList();
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          <strong class="jxr_keyword">if</strong> (!replaced.get()) {
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>          }
@@ -111,7 +111,7 @@
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> delete(Integer id) {
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>         <strong class="jxr_keyword">var</strong> excludedData = load().stream()
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>                 .filter(items -&gt; Integer.parseInt(items[0])  != id) <em class="jxr_comment">// numberはpos:0は共通</em>
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>                 .collect(Collectors.toList());
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>                 .toList();
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>         saveAll(excludedData);
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>     }
 <a class="jxr_linenumber" name="L109" href="#L109">109</a> 

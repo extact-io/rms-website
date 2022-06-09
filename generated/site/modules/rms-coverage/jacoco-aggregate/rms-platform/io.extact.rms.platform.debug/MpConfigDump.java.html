@@ -47,7 +47,7 @@ public class MpConfigDump {
 <span class="fc" id="L47">            filters = StreamSupport.stream(config.getPropertyNames().spliterator(), false)</span>
 <span class="fc" id="L48">                    .filter(s -&gt; s.startsWith(&quot;configdump.filters&quot;))</span>
 <span class="fc" id="L49">                    .map(s -&gt; config.getValue(s, String.class))</span>
-<span class="fc" id="L50">                    .collect(Collectors.toList());</span>
+<span class="fc" id="L50">                    .toList();</span>
         }
 
 <span class="fc" id="L53">        Predicate&lt;String&gt; containsForwardMatch = new ContainsForwardMatch(filters);</span>

@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"io.extact.rms.test.assertj"},{"l":"io.extact.rms.test.junit5"}]
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"io.extact.rms.test.assertj"},{"l":"io.extact.rms.test.junit5"}];updateSearchResults();

@@ -3,7 +3,6 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -16,7 +15,7 @@ import io.extact.rms.platform.extension.EnabledIfRuntimeConfig;
 
 @ApplicationScoped
 @EnabledIfRuntimeConfig(propertyName = ApiType.PROP_NAME, value = ApiType.JPA)
-<span class="fc" id="L19">public class ReservationJpaRepository implements ReservationRepository, JpaCrudRepository&lt;Reservation&gt; {</span>
+<span class="fc" id="L18">public class ReservationJpaRepository implements ReservationRepository, JpaCrudRepository&lt;Reservation&gt; {</span>
 
     private static final String JPQL_SELECT_BY_RENTAL_ID = &quot;select r from Reservation r where r.rentalItemId = ?1 order by r.id&quot;;
 
@@ -25,61 +24,61 @@ import io.extact.rms.platform.extension.EnabledIfRuntimeConfig;
 
     @Override
     public List&lt;Reservation&gt; findByRentalItemAndStartDate(int rentalItemId, LocalDate startDate) {
-<span class="fc" id="L28">        return em.createQuery(JPQL_SELECT_BY_RENTAL_ID, Reservation.class)</span>
-<span class="fc" id="L29">                    .setParameter(1, rentalItemId)</span>
-<span class="fc" id="L30">                    .getResultList().stream()</span>
-<span class="fc" id="L31">                    .filter(reservation -&gt; reservation.getStartDateTime().toLocalDate().equals(startDate))</span>
-<span class="fc" id="L32">                    .collect(Collectors.toList());</span>
+<span class="fc" id="L27">        return em.createQuery(JPQL_SELECT_BY_RENTAL_ID, Reservation.class)</span>
+<span class="fc" id="L28">                    .setParameter(1, rentalItemId)</span>
+<span class="fc" id="L29">                    .getResultList().stream()</span>
+<span class="fc" id="L30">                    .filter(reservation -&gt; reservation.getStartDateTime().toLocalDate().equals(startDate))</span>
+<span class="fc" id="L31">                    .toList();</span>
     }
 
     @Override
     public List&lt;Reservation&gt; findByReserverId(int reserverId) {
-<span class="fc" id="L37">        var jpql = &quot;select r from Reservation r where r.userAccountId = ?1 order by r.id&quot;;</span>
-<span class="fc" id="L38">        return em.createQuery(jpql, Reservation.class)</span>
-<span class="fc" id="L39">                    .setParameter(1, reserverId)</span>
-<span class="fc" id="L40">                    .getResultList();</span>
+<span class="fc" id="L36">        var jpql = &quot;select r from Reservation r where r.userAccountId = ?1 order by r.id&quot;;</span>
+<span class="fc" id="L37">        return em.createQuery(jpql, Reservation.class)</span>
+<span class="fc" id="L38">                    .setParameter(1, reserverId)</span>
+<span class="fc" id="L39">                    .getResultList();</span>
     }
 
     @Override
     public List&lt;Reservation&gt; findByRentalItemId(int rentalItemId) {
-<span class="fc" id="L45">        return em.createQuery(JPQL_SELECT_BY_RENTAL_ID, Reservation.class)</span>
-<span class="fc" id="L46">                    .setParameter(1, rentalItemId)</span>
-<span class="fc" id="L47">                    .getResultList();</span>
+<span class="fc" id="L44">        return em.createQuery(JPQL_SELECT_BY_RENTAL_ID, Reservation.class)</span>
+<span class="fc" id="L45">                    .setParameter(1, rentalItemId)</span>
+<span class="fc" id="L46">                    .getResultList();</span>
     }
 
     //@Override
     public List&lt;Reservation&gt; findOverlappedReservations(int rentalItemId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
-<span class="fc" id="L52">        var period = new Reservation.DateTimePeriod(startDateTime, endDateTime);</span>
-<span class="fc" id="L53">        return em.createQuery(JPQL_SELECT_BY_RENTAL_ID, Reservation.class)</span>
-<span class="fc" id="L54">                    .setParameter(1, rentalItemId)</span>
-<span class="fc" id="L55">                    .getResultList().stream()</span>
-<span class="fc" id="L56">                    .filter(reservation -&gt; reservation.getReservePeriod().isOverlappedBy(period))</span>
-<span class="fc" id="L57">                    .collect(Collectors.toList());</span>
+<span class="fc" id="L51">        var period = new Reservation.DateTimePeriod(startDateTime, endDateTime);</span>
+<span class="fc" id="L52">        return em.createQuery(JPQL_SELECT_BY_RENTAL_ID, Reservation.class)</span>
+<span class="fc" id="L53">                    .setParameter(1, rentalItemId)</span>
+<span class="fc" id="L54">                    .getResultList().stream()</span>
+<span class="fc" id="L55">                    .filter(reservation -&gt; reservation.getReservePeriod().isOverlappedBy(period))</span>
+<span class="fc" id="L56">                    .toList();</span>
     }
 
     @Override
     public Reservation findOverlappedReservation(int rentalItemId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
-<span class="fc" id="L62">        return this.findOverlappedReservations(rentalItemId, startDateTime, endDateTime).stream()</span>
-<span class="fc" id="L63">                .findFirst()</span>
-<span class="fc" id="L64">                .orElse(null);</span>
+<span class="fc" id="L61">        return this.findOverlappedReservations(rentalItemId, startDateTime, endDateTime).stream()</span>
+<span class="fc" id="L62">                .findFirst()</span>
+<span class="fc" id="L63">                .orElse(null);</span>
     }
 
     @Override
     public List&lt;Reservation&gt; findOverlappedReservations(LocalDateTime from, LocalDateTime to) {
-<span class="fc" id="L69">        var period = new Reservation.DateTimePeriod(from, to);</span>
-<span class="fc" id="L70">        return findAll().stream()</span>
-<span class="fc" id="L71">                .filter(reservation -&gt; reservation.getReservePeriod().isOverlappedBy(period))</span>
-<span class="fc" id="L72">                .collect(Collectors.toList());</span>
+<span class="fc" id="L68">        var period = new Reservation.DateTimePeriod(from, to);</span>
+<span class="fc" id="L69">        return findAll().stream()</span>
+<span class="fc" id="L70">                .filter(reservation -&gt; reservation.getReservePeriod().isOverlappedBy(period))</span>
+<span class="fc" id="L71">                .toList();</span>
     }
 
     @Override
     public EntityManager getEntityManage() {
-<span class="fc" id="L77">        return this.em;</span>
+<span class="fc" id="L76">        return this.em;</span>
     }
 
     @Override
     public Class&lt;Reservation&gt; getTargetClass() {
-<span class="fc" id="L82">        return Reservation.class;</span>
+<span class="fc" id="L81">        return Reservation.class;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

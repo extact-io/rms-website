@@ -116,7 +116,7 @@ import java.util.stream.Collectors;
 
 <span class="fc" id="L117">        List&lt;File&gt; jarFiles = inJarUrls.stream()</span>
 <span class="fc" id="L118">                            .map(ResourceUtils::toJarFileFromResourceUrl)</span>
-<span class="fc" id="L119">                            .collect(Collectors.toList());</span>
+<span class="fc" id="L119">                            .toList();</span>
 
 
         // --- Scan in JarFile ---
@@ -143,7 +143,7 @@ import java.util.stream.Collectors;
                         }
 <span class="fc" id="L144">                        return &quot;jar:file:&quot; + filePath + &quot;!/&quot; + entry.getName();})</span>
 <span class="fc" id="L145">                    .map(ResourceUtils::toUrl)</span>
-<span class="fc" id="L146">                    .collect(Collectors.toList());</span>
+<span class="fc" id="L146">                    .toList();</span>
             }
 <span class="fc" id="L148">            targetUrls.addAll(urls);</span>
 <span class="fc" id="L149">        }</span>

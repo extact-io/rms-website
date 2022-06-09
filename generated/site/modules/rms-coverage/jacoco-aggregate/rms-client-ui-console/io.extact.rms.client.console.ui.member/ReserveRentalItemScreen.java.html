@@ -3,10 +3,6 @@
 import static io.extact.rms.client.console.ui.ClientConstants.*;
 import static io.extact.rms.client.console.ui.textio.TextIoUtils.*;
 
-import java.util.stream.Collectors;
-
-import lombok.RequiredArgsConstructor;
-
 import io.extact.rms.client.api.RentalReservationClientApi;
 import io.extact.rms.client.api.dto.RentalItemClientDto;
 import io.extact.rms.client.api.dto.ReservationClientDto;
@@ -16,8 +12,9 @@ import io.extact.rms.client.console.ui.ClientConstants;
 import io.extact.rms.client.console.ui.TransitionMap.RmsScreen;
 import io.extact.rms.client.console.ui.TransitionMap.Transition;
 import io.extact.rms.client.console.ui.textio.TextIoUtils;
+import lombok.RequiredArgsConstructor;
 
-<span class="nc" id="L20">@RequiredArgsConstructor</span>
+<span class="nc" id="L17">@RequiredArgsConstructor</span>
 public class ReserveRentalItemScreen implements RmsScreen {
 
     private final RentalReservationClientApi clientApi;
@@ -25,68 +22,68 @@ public class ReserveRentalItemScreen implements RmsScreen {
     @Override
     public Transition play(UserAccountClientDto loginUser, boolean printHeader) {
 
-<span class="nc bnc" id="L28" title="All 2 branches missed.">        if (printHeader) {</span>
-<span class="nc" id="L29">            printScreenHeader(loginUser, &quot;レンタル品予約画面&quot;);</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        if (printHeader) {</span>
+<span class="nc" id="L26">            printScreenHeader(loginUser, &quot;レンタル品予約画面&quot;);</span>
         }
 
         // レンタル品一覧を表示
-<span class="nc" id="L33">        var items = clientApi.getAllRentalItems();</span>
-<span class="nc" id="L34">        println(ENTRY_RESERVATION_INFORMATION);</span>
-<span class="nc" id="L35">        items.forEach(dto -&gt;</span>
-<span class="nc" id="L36">            println(RENATL_ITEM_FORMAT.format(dto))</span>
+<span class="nc" id="L30">        var items = clientApi.getAllRentalItems();</span>
+<span class="nc" id="L31">        println(ENTRY_RESERVATION_INFORMATION);</span>
+<span class="nc" id="L32">        items.forEach(dto -&gt;</span>
+<span class="nc" id="L33">            println(RENATL_ITEM_FORMAT.format(dto))</span>
         );
-<span class="nc" id="L38">        blankLine();</span>
+<span class="nc" id="L35">        blankLine();</span>
 
         // 予約するレンタル品の選択
-<span class="nc" id="L41">        var selectedItem = newIntInputReader()</span>
-<span class="nc" id="L42">                .withSelectableValues(</span>
-<span class="nc" id="L43">                        items.stream()</span>
-<span class="nc" id="L44">                            .map(RentalItemClientDto::getId)</span>
-<span class="nc" id="L45">                            .collect(Collectors.toList()),</span>
+<span class="nc" id="L38">        var selectedItem = newIntInputReader()</span>
+<span class="nc" id="L39">                .withSelectableValues(</span>
+<span class="nc" id="L40">                        items.stream()</span>
+<span class="nc" id="L41">                            .map(RentalItemClientDto::getId)</span>
+<span class="nc" id="L42">                            .toList(),</span>
                         SCREEN_BREAK_VALUE)
-<span class="nc" id="L47">                .read(&quot;レンタル品番号&quot;);</span>
-<span class="nc bnc" id="L48" title="All 2 branches missed.">        if (TextIoUtils.isBreak(selectedItem)) {</span>
-<span class="nc" id="L49">            return Transition.MEMBER_MAIN;</span>
+<span class="nc" id="L44">                .read(&quot;レンタル品番号&quot;);</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">        if (TextIoUtils.isBreak(selectedItem)) {</span>
+<span class="nc" id="L46">            return Transition.MEMBER_MAIN;</span>
         }
 
         // 利用開始日時の入力
-<span class="nc" id="L53">        var startDateTime = newLocalDateTimeReader()</span>
-<span class="nc" id="L54">                .withFutureNow()</span>
-<span class="nc" id="L55">                .read(&quot;利用開始日時（入力例－2020/04/01 09:00）:&quot;);</span>
+<span class="nc" id="L50">        var startDateTime = newLocalDateTimeReader()</span>
+<span class="nc" id="L51">                .withFutureNow()</span>
+<span class="nc" id="L52">                .read(&quot;利用開始日時（入力例－2020/04/01 09:00）:&quot;);</span>
 
         // 利用終了日時の入力
-<span class="nc" id="L58">        var endDateTime = newLocalDateTimeReader()</span>
-<span class="nc" id="L59">                .withFutureThan(startDateTime)</span>
-<span class="nc" id="L60">                .read(&quot;利用終了日時（入力例－2020/04/01 18:00）:&quot;);</span>
+<span class="nc" id="L55">        var endDateTime = newLocalDateTimeReader()</span>
+<span class="nc" id="L56">                .withFutureThan(startDateTime)</span>
+<span class="nc" id="L57">                .read(&quot;利用終了日時（入力例－2020/04/01 18:00）:&quot;);</span>
 
         // 備考の入力
-<span class="nc" id="L63">        var note = newStringInputReader()</span>
-<span class="nc" id="L64">                .withMaxLength(15)</span>
-<span class="nc" id="L65">                .withDefaultValue(&quot;&quot;)</span>
-<span class="nc" id="L66">                .read(&quot;備考（空白可）&quot;);</span>
+<span class="nc" id="L60">        var note = newStringInputReader()</span>
+<span class="nc" id="L61">                .withMaxLength(15)</span>
+<span class="nc" id="L62">                .withDefaultValue(&quot;&quot;)</span>
+<span class="nc" id="L63">                .read(&quot;備考（空白可）&quot;);</span>
 
-<span class="nc" id="L68">        blankLine();</span>
+<span class="nc" id="L65">        blankLine();</span>
 
         // レンタル品予約の実行
         try {
-<span class="nc" id="L72">            var addReservation = ReservationClientDto.ofTransient(startDateTime, endDateTime, note, selectedItem, loginUser.getId());</span>
-<span class="nc" id="L73">            var newReservation = clientApi.addReservation(addReservation);</span>
-<span class="nc" id="L74">            printResultInformation(newReservation);</span>
-<span class="nc" id="L75">            return Transition.MEMBER_MAIN;</span>
+<span class="nc" id="L69">            var addReservation = ReservationClientDto.ofTransient(startDateTime, endDateTime, note, selectedItem, loginUser.getId());</span>
+<span class="nc" id="L70">            var newReservation = clientApi.addReservation(addReservation);</span>
+<span class="nc" id="L71">            printResultInformation(newReservation);</span>
+<span class="nc" id="L72">            return Transition.MEMBER_MAIN;</span>
 
-<span class="nc" id="L77">        } catch (BusinessFlowClientException e) {</span>
-<span class="nc" id="L78">            printServerError(e);</span>
-<span class="nc" id="L79">            return play(loginUser, false); // start over!!</span>
+<span class="nc" id="L74">        } catch (BusinessFlowClientException e) {</span>
+<span class="nc" id="L75">            printServerError(e);</span>
+<span class="nc" id="L76">            return play(loginUser, false); // start over!!</span>
 
         }
     }
 
     private void printResultInformation(ReservationClientDto newReservation) {
-<span class="nc" id="L85">        println(&quot;***** 予約確定結果 *****&quot;);</span>
-<span class="nc" id="L86">        printf(ClientConstants.RESERVATION_FORMAT.format(newReservation));</span>
-<span class="nc" id="L87">        blankLine();</span>
-<span class="nc" id="L88">        blankLine();</span>
-<span class="nc" id="L89">        waitPressEnter();</span>
-<span class="nc" id="L90">    }</span>
+<span class="nc" id="L82">        println(&quot;***** 予約確定結果 *****&quot;);</span>
+<span class="nc" id="L83">        printf(ClientConstants.RESERVATION_FORMAT.format(newReservation));</span>
+<span class="nc" id="L84">        blankLine();</span>
+<span class="nc" id="L85">        blankLine();</span>
+<span class="nc" id="L86">        waitPressEnter();</span>
+<span class="nc" id="L87">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

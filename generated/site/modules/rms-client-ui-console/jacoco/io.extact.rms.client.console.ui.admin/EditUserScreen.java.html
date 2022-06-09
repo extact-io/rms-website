@@ -3,10 +3,6 @@
 import static io.extact.rms.client.console.ui.ClientConstants.*;
 import static io.extact.rms.client.console.ui.textio.TextIoUtils.*;
 
-import java.util.stream.Collectors;
-
-import lombok.RequiredArgsConstructor;
-
 import io.extact.rms.client.api.RentalReservationClientApi;
 import io.extact.rms.client.api.dto.UserAccountClientDto;
 import io.extact.rms.client.api.dto.UserAccountClientDto.ClientUserType;
@@ -16,8 +12,9 @@ import io.extact.rms.client.console.ui.TransitionMap.RmsScreen;
 import io.extact.rms.client.console.ui.TransitionMap.Transition;
 import io.extact.rms.client.console.ui.textio.RmsStringInputReader.PatternMessage;
 import io.extact.rms.client.console.ui.textio.TextIoUtils;
+import lombok.RequiredArgsConstructor;
 
-<span class="nc" id="L20">@RequiredArgsConstructor</span>
+<span class="nc" id="L17">@RequiredArgsConstructor</span>
 public class EditUserScreen implements RmsScreen {
 
     private final RentalReservationClientApi clientApi;
@@ -25,92 +22,92 @@ public class EditUserScreen implements RmsScreen {
     @Override
     public Transition play(UserAccountClientDto loginUser, boolean printHeader) {
 
-<span class="nc bnc" id="L28" title="All 2 branches missed.">        if (printHeader) {</span>
-<span class="nc" id="L29">            printScreenHeader(loginUser, &quot;ユーザ情報編集画面&quot;);</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        if (printHeader) {</span>
+<span class="nc" id="L26">            printScreenHeader(loginUser, &quot;ユーザ情報編集画面&quot;);</span>
         }
 
         // ユーザ一覧を表示
-<span class="nc" id="L33">        var users = clientApi.getAllUserAccounts();</span>
-<span class="nc" id="L34">        println(EDIT_USER_INFORMATION);</span>
-<span class="nc" id="L35">        users.forEach(dto -&gt;</span>
-<span class="nc" id="L36">            println(ClientConstants.USER_ACCOUNT_FORMAT.format(dto))</span>
+<span class="nc" id="L30">        var users = clientApi.getAllUserAccounts();</span>
+<span class="nc" id="L31">        println(EDIT_USER_INFORMATION);</span>
+<span class="nc" id="L32">        users.forEach(dto -&gt;</span>
+<span class="nc" id="L33">            println(ClientConstants.USER_ACCOUNT_FORMAT.format(dto))</span>
         );
-<span class="nc" id="L38">        blankLine();</span>
+<span class="nc" id="L35">        blankLine();</span>
 
         // 編集するユーザを選択
-<span class="nc" id="L41">        var selectNumber = newIntInputReader()</span>
-<span class="nc" id="L42">                .withSelectableValues(</span>
-<span class="nc" id="L43">                        users.stream()</span>
-<span class="nc" id="L44">                            .map(UserAccountClientDto::getId)</span>
-<span class="nc" id="L45">                            .collect(Collectors.toList()),</span>
+<span class="nc" id="L38">        var selectNumber = newIntInputReader()</span>
+<span class="nc" id="L39">                .withSelectableValues(</span>
+<span class="nc" id="L40">                        users.stream()</span>
+<span class="nc" id="L41">                            .map(UserAccountClientDto::getId)</span>
+<span class="nc" id="L42">                            .toList(),</span>
                         SCREEN_BREAK_VALUE)
-<span class="nc" id="L47">                .read(&quot;ユーザ番号&quot;);</span>
-<span class="nc bnc" id="L48" title="All 2 branches missed.">        if (TextIoUtils.isBreak(selectNumber)) {</span>
-<span class="nc" id="L49">            return Transition.ADMIN_MAIN;</span>
+<span class="nc" id="L44">                .read(&quot;ユーザ番号&quot;);</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">        if (TextIoUtils.isBreak(selectNumber)) {</span>
+<span class="nc" id="L46">            return Transition.ADMIN_MAIN;</span>
         }
-<span class="nc" id="L51">        blankLine();</span>
+<span class="nc" id="L48">        blankLine();</span>
 
-<span class="nc" id="L53">        var targetUser = users.stream()</span>
-<span class="nc" id="L54">                .filter(user -&gt; user.getId().equals(selectNumber))</span>
-<span class="nc" id="L55">                .findFirst()</span>
-<span class="nc" id="L56">                .get();</span>
+<span class="nc" id="L50">        var targetUser = users.stream()</span>
+<span class="nc" id="L51">                .filter(user -&gt; user.getId().equals(selectNumber))</span>
+<span class="nc" id="L52">                .findFirst()</span>
+<span class="nc" id="L53">                .get();</span>
 
         // パスワードの入力
-<span class="nc" id="L59">        var password = newStringInputReader()</span>
-<span class="nc" id="L60">                .withDefaultValue(targetUser.getPassword())</span>
-<span class="nc" id="L61">                .withMinLength(5)</span>
-<span class="nc" id="L62">                .withMaxLength(15)</span>
-<span class="nc" id="L63">                .read(&quot;パスワード&quot;);</span>
-<span class="nc" id="L64">        targetUser.setPassword(password);</span>
+<span class="nc" id="L56">        var password = newStringInputReader()</span>
+<span class="nc" id="L57">                .withDefaultValue(targetUser.getPassword())</span>
+<span class="nc" id="L58">                .withMinLength(5)</span>
+<span class="nc" id="L59">                .withMaxLength(15)</span>
+<span class="nc" id="L60">                .read(&quot;パスワード&quot;);</span>
+<span class="nc" id="L61">        targetUser.setPassword(password);</span>
 
         // ユーザ名の入力
-<span class="nc" id="L67">        var userName = newStringInputReader()</span>
-<span class="nc" id="L68">                .withDefaultValue(targetUser.getUserName())</span>
-<span class="nc" id="L69">                .withMinLength(1)</span>
-<span class="nc" id="L70">                .read(&quot;ユーザ名&quot;);</span>
-<span class="nc" id="L71">        targetUser.setUserName(userName);</span>
+<span class="nc" id="L64">        var userName = newStringInputReader()</span>
+<span class="nc" id="L65">                .withDefaultValue(targetUser.getUserName())</span>
+<span class="nc" id="L66">                .withMinLength(1)</span>
+<span class="nc" id="L67">                .read(&quot;ユーザ名&quot;);</span>
+<span class="nc" id="L68">        targetUser.setUserName(userName);</span>
 
         // 電話番号の入力
-<span class="nc" id="L74">        var phoneNumber = newStringInputReader()</span>
-<span class="nc" id="L75">                .withDefaultValue(targetUser.getPhoneNumber())</span>
-<span class="nc" id="L76">                .withMaxLength(14)</span>
-<span class="nc" id="L77">                .withPattern(PatternMessage.PHONE_NUMBER)</span>
-<span class="nc" id="L78">                .read(&quot;電話番号（省略可）&quot;);</span>
-<span class="nc" id="L79">        targetUser.setPhoneNumber(phoneNumber);</span>
+<span class="nc" id="L71">        var phoneNumber = newStringInputReader()</span>
+<span class="nc" id="L72">                .withDefaultValue(targetUser.getPhoneNumber())</span>
+<span class="nc" id="L73">                .withMaxLength(14)</span>
+<span class="nc" id="L74">                .withPattern(PatternMessage.PHONE_NUMBER)</span>
+<span class="nc" id="L75">                .read(&quot;電話番号（省略可）&quot;);</span>
+<span class="nc" id="L76">        targetUser.setPhoneNumber(phoneNumber);</span>
 
         // 連絡先の入力
-<span class="nc" id="L82">        var contact = newStringInputReader()</span>
-<span class="nc" id="L83">                .withDefaultValue(targetUser.getPhoneNumber())</span>
-<span class="nc" id="L84">                .withMaxLength(15)</span>
-<span class="nc" id="L85">                .read(&quot;連絡先（省略可）&quot;);</span>
-<span class="nc" id="L86">        targetUser.setContact(contact);</span>
+<span class="nc" id="L79">        var contact = newStringInputReader()</span>
+<span class="nc" id="L80">                .withDefaultValue(targetUser.getPhoneNumber())</span>
+<span class="nc" id="L81">                .withMaxLength(15)</span>
+<span class="nc" id="L82">                .read(&quot;連絡先（省略可）&quot;);</span>
+<span class="nc" id="L83">        targetUser.setContact(contact);</span>
 
         // 連絡先の入力
-<span class="nc" id="L89">        var userType = newEnumInputReader(ClientUserType.class)</span>
-<span class="nc" id="L90">                .withDefaultValue(targetUser.getUserType())</span>
-<span class="nc" id="L91">                .read(&quot;権限&quot;);</span>
-<span class="nc" id="L92">        targetUser.setUserType(userType);</span>
+<span class="nc" id="L86">        var userType = newEnumInputReader(ClientUserType.class)</span>
+<span class="nc" id="L87">                .withDefaultValue(targetUser.getUserType())</span>
+<span class="nc" id="L88">                .read(&quot;権限&quot;);</span>
+<span class="nc" id="L89">        targetUser.setUserType(userType);</span>
 
         // ユーザ情報の更新実行
         try {
-<span class="nc" id="L96">            var updatedUser = clientApi.updateUserAccount(targetUser);</span>
-<span class="nc" id="L97">            printResultInformation(updatedUser);</span>
-<span class="nc" id="L98">            return Transition.ADMIN_MAIN;</span>
+<span class="nc" id="L93">            var updatedUser = clientApi.updateUserAccount(targetUser);</span>
+<span class="nc" id="L94">            printResultInformation(updatedUser);</span>
+<span class="nc" id="L95">            return Transition.ADMIN_MAIN;</span>
 
-<span class="nc" id="L100">        } catch (BusinessFlowClientException e) {</span>
-<span class="nc" id="L101">            printServerError(e);</span>
-<span class="nc" id="L102">            return play(loginUser, false); // start over!!</span>
+<span class="nc" id="L97">        } catch (BusinessFlowClientException e) {</span>
+<span class="nc" id="L98">            printServerError(e);</span>
+<span class="nc" id="L99">            return play(loginUser, false); // start over!!</span>
 
         }
     }
 
     private void printResultInformation(UserAccountClientDto updatedUserAccount) {
+<span class="nc" id="L105">        blankLine();</span>
+<span class="nc" id="L106">        println(&quot;***** ユーザ登録結果 *****&quot;);</span>
+<span class="nc" id="L107">        printf(&quot;[%s]のユーザ情報を更新しました&quot;, updatedUserAccount.getId());</span>
 <span class="nc" id="L108">        blankLine();</span>
-<span class="nc" id="L109">        println(&quot;***** ユーザ登録結果 *****&quot;);</span>
-<span class="nc" id="L110">        printf(&quot;[%s]のユーザ情報を更新しました&quot;, updatedUserAccount.getId());</span>
-<span class="nc" id="L111">        blankLine();</span>
-<span class="nc" id="L112">        blankLine();</span>
-<span class="nc" id="L113">        waitPressEnter();</span>
-<span class="nc" id="L114">    }</span>
+<span class="nc" id="L109">        blankLine();</span>
+<span class="nc" id="L110">        waitPressEnter();</span>
+<span class="nc" id="L111">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
