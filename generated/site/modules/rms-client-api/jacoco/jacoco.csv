@@ -7,8 +7,8 @@ rms-client-api,io.extact.rms.client.api.dto,UserAccountClientDto,105,0,0,0,13,0,
 rms-client-api,io.extact.rms.client.api.dto,RentalItemClientDto,179,0,30,0,9,0,29,0,14,0
 rms-client-api,io.extact.rms.client.api.dto,ReservationClientDto,112,0,0,0,13,0,21,0,21,0
 rms-client-api,io.extact.rms.client.api.exception,RentalReservationClientException,10,0,0,0,4,0,2,0,2,0
-rms-client-api,io.extact.rms.client.api.exception,ValidateClientException.ValidationErrorItem,17,0,0,0,7,0,5,0,5,0
 rms-client-api,io.extact.rms.client.api.exception,RmsSystemClientException,8,0,0,0,4,0,2,0,2,0
+rms-client-api,io.extact.rms.client.api.exception,ValidateClientException.ValidationErrorItem,17,0,0,0,7,0,5,0,5,0
 rms-client-api,io.extact.rms.client.api.exception,ValidateClientException.ValidationErrorMessage,24,0,0,0,10,0,7,0,7,0
 rms-client-api,io.extact.rms.client.api.exception,BusinessFlowClientException,8,0,0,0,4,0,2,0,2,0
 rms-client-api,io.extact.rms.client.api.exception,UnknownClientException,8,0,0,0,4,0,2,0,2,0
