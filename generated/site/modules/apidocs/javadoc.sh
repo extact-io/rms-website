@@ -1,1 +1,1 @@
-/opt/hostedtoolcache/jdk/17.0.3/x64/bin/javadoc -J-Xmx256m @options @packages
+/opt/hostedtoolcache/jdk/17.0.4/x64/bin/javadoc -J-Xmx256m @options @packages
