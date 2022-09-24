@@ -50,13 +50,13 @@
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>                                  <span class="jxr_string">"org.apache.commons.lang3.."</span>,
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>                                  <span class="jxr_string">"org.slf4j.."</span>,
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>                                  <span class="jxr_string">"org.eclipse.microprofile.config.."</span>,
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>                                  <span class="jxr_string">"javax.inject.."</span>,
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>                                  <span class="jxr_string">"javax.enterprise.inject.."</span>,
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>                                  <span class="jxr_string">"javax.enterprise.context.."</span>,
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>                                  <span class="jxr_string">"javax.enterprise.event.."</span>,
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>                                  <span class="jxr_string">"javax.validation.."</span>,
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>                                  <span class="jxr_string">"javax.transaction.."</span>,
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>                                  <span class="jxr_string">"javax.persistence.."</span>,
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>                                  <span class="jxr_string">"jakarta.inject.."</span>,
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>                                  <span class="jxr_string">"jakarta.enterprise.inject.."</span>,
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>                                  <span class="jxr_string">"jakarta.enterprise.context.."</span>,
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>                                  <span class="jxr_string">"jakarta.enterprise.event.."</span>,
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>                                  <span class="jxr_string">"jakarta.validation.."</span>,
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>                                  <span class="jxr_string">"jakarta.transaction.."</span>,
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>                                  <span class="jxr_string">"jakarta.persistence.."</span>,
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>                                  <span class="jxr_string">"java.."</span>
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>                              )
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>                              <em class="jxr_comment">// https://github.com/TNG/ArchUnit/issues/183 による配列型の個別追加</em>
@@ -120,9 +120,9 @@
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>                         );
 <a class="jxr_linenumber" name="L113" href="#L113">113</a> 
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L115" href="#L115">115</a> <em class="jxr_javadoccomment">     * javax.persistence.*への依存はjpaパッケージのみの定義</em>
+<a class="jxr_linenumber" name="L115" href="#L115">115</a> <em class="jxr_javadoccomment">     * jakarta.persistence.*への依存はjpaパッケージのみの定義</em>
 <a class="jxr_linenumber" name="L116" href="#L116">116</a> <em class="jxr_javadoccomment">     * &lt;pre&gt;</em>
-<a class="jxr_linenumber" name="L117" href="#L117">117</a> <em class="jxr_javadoccomment">     * ・javax.persistence.*に依存するのはpersistence.jpaパッケージとdomain(entity)パッケージの2つであること</em>
+<a class="jxr_linenumber" name="L117" href="#L117">117</a> <em class="jxr_javadoccomment">     * ・jakarta.persistence.*に依存するのはpersistence.jpaパッケージとdomain(entity)パッケージの2つであること</em>
 <a class="jxr_linenumber" name="L118" href="#L118">118</a> <em class="jxr_javadoccomment">     * &lt;/pre&gt;</em>
 <a class="jxr_linenumber" name="L119" href="#L119">119</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>     @ArchTest
@@ -135,7 +135,7 @@
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>             .should()
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>                 .dependOnClassesThat()
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>                     .resideInAnyPackage(
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>                         <span class="jxr_string">"javax.persistence.."</span>
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>                         <span class="jxr_string">"jakarta.persistence.."</span>
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>                         );
 <a class="jxr_linenumber" name="L132" href="#L132">132</a> 
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>     <em class="jxr_javadoccomment">/**</em>
@@ -154,8 +154,8 @@
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>                         .resideInAnyPackage(
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>                                 <span class="jxr_string">"io.extact.rms.application.domain.."</span>,
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>                                 <span class="jxr_string">"org.apache.commons.lang3.."</span>,
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>                                 <span class="jxr_string">"javax.persistence.."</span>,
-<a class="jxr_linenumber" name="L150" href="#L150">150</a>                                 <span class="jxr_string">"javax.validation.."</span>,
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>                                 <span class="jxr_string">"jakarta.persistence.."</span>,
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>                                 <span class="jxr_string">"jakarta.validation.."</span>,
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>                                 <span class="jxr_string">"java.."</span>
 <a class="jxr_linenumber" name="L152" href="#L152">152</a>                                 );
 <a class="jxr_linenumber" name="L153" href="#L153">153</a> }

@@ -37,6 +37,6 @@ rms-application,io.extact.rms.application.persistence.file,UserAccountFileReposi
 rms-application,io.extact.rms.application.domain.constraint,BeforeAfterDateTime.BeforeAfterDateTimeValidator,0,17,0,4,0,4,0,4,0,2
 rms-application,io.extact.rms.application,RentalReservationApplicationImpl,0,346,0,18,0,84,0,36,0,27
 rms-application,io.extact.rms.application.persistence.jpa,RentalItemJpaRepository,0,24,0,0,0,9,0,4,0,4
-rms-application,io.extact.rms.application.persistence.jpa,JpaCrudRepository,0,62,0,4,0,15,0,7,0,5
+rms-application,io.extact.rms.application.persistence.jpa,JpaCrudRepository,0,65,0,4,0,16,0,8,0,6
 rms-application,io.extact.rms.application.persistence.jpa,UserAccountJpaRepository,0,43,0,0,0,16,0,5,0,5
 rms-application,io.extact.rms.application.persistence.jpa,ReservationJpaRepository,0,111,0,0,0,28,0,12,0,12

@@ -5,21 +5,20 @@ import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
 import java.util.function.BiFunction;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.Liveness;
 import org.eclipse.microprofile.health.Readiness;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
 @ApplicationScoped
-<span class="fc" id="L22">@Slf4j</span>
+<span class="fc" id="L21">@Slf4j</span>
 public class MemoryHealthCheck {
 
     private String livenessName;
@@ -33,28 +32,28 @@ public class MemoryHealthCheck {
             @ConfigProperty(name=&quot;healthCheck.memoryReadiness.name&quot;) String readinessName,
             @ConfigProperty(name=&quot;healthCheck.memoryLiveness.method&quot;) String defaultMethod,
             @ConfigProperty(name=&quot;healthCheck.memoryLiveness.threshold&quot;) long defaultThreshold
-<span class="fc" id="L36">        ) {</span>
-<span class="fc" id="L37">        this.livenessName = livenessName;</span>
-<span class="fc" id="L38">        this.readinessName = readinessName;</span>
-<span class="fc" id="L39">        this.evaluator = MemoryLivenessEvaluator.of(defaultMethod, defaultThreshold);</span>
-<span class="fc" id="L40">        this.mbean = ManagementFactory.getMemoryMXBean();</span>
-<span class="fc" id="L41">    }</span>
+<span class="fc" id="L35">        ) {</span>
+<span class="fc" id="L36">        this.livenessName = livenessName;</span>
+<span class="fc" id="L37">        this.readinessName = readinessName;</span>
+<span class="fc" id="L38">        this.evaluator = MemoryLivenessEvaluator.of(defaultMethod, defaultThreshold);</span>
+<span class="fc" id="L39">        this.mbean = ManagementFactory.getMemoryMXBean();</span>
+<span class="fc" id="L40">    }</span>
 
     @Produces
     @Liveness
     public HealthCheck checkLivenss() {
-<span class="fc" id="L46">        return () -&gt; {</span>
-<span class="fc" id="L47">            MemoryUsage memoryUsage = mbean.getHeapMemoryUsage();</span>
-<span class="fc" id="L48">            log.info(&quot;MemoryUsage:&quot; + memoryUsage);</span>
-<span class="fc" id="L49">            return  HealthCheckResponse</span>
-<span class="fc" id="L50">                .named(livenessName)</span>
-<span class="fc" id="L51">                .withData(&quot;init&quot;, memoryUsage.getInit() / (1024 * 1024)) // MByte</span>
-<span class="fc" id="L52">                .withData(&quot;used&quot;, memoryUsage.getUsed() / (1024 * 1024)) // MByte</span>
-<span class="fc" id="L53">                .withData(&quot;max&quot;, memoryUsage.getMax() / (1024 * 1024))   // MByte</span>
-<span class="fc" id="L54">                .withData(&quot;method&quot;, evaluator.name())</span>
-<span class="fc" id="L55">                .withData(&quot;threshold&quot;, evaluator.threshold())</span>
-<span class="fc" id="L56">                .state(evaluator.liveness(memoryUsage))</span>
-<span class="fc" id="L57">                .build();</span>
+<span class="fc" id="L45">        return () -&gt; {</span>
+<span class="fc" id="L46">            MemoryUsage memoryUsage = mbean.getHeapMemoryUsage();</span>
+<span class="fc" id="L47">            log.info(&quot;MemoryUsage:&quot; + memoryUsage);</span>
+<span class="fc" id="L48">            return  HealthCheckResponse</span>
+<span class="fc" id="L49">                .named(livenessName)</span>
+<span class="fc" id="L50">                .withData(&quot;init&quot;, memoryUsage.getInit() / (1024 * 1024)) // MByte</span>
+<span class="fc" id="L51">                .withData(&quot;used&quot;, memoryUsage.getUsed() / (1024 * 1024)) // MByte</span>
+<span class="fc" id="L52">                .withData(&quot;max&quot;, memoryUsage.getMax() / (1024 * 1024))   // MByte</span>
+<span class="fc" id="L53">                .withData(&quot;method&quot;, evaluator.name())</span>
+<span class="fc" id="L54">                .withData(&quot;threshold&quot;, evaluator.threshold())</span>
+<span class="fc" id="L55">                .status(evaluator.liveness(memoryUsage))</span>
+<span class="fc" id="L56">                .build();</span>
         };
     }
 
@@ -62,15 +61,15 @@ public class MemoryHealthCheck {
     @Readiness
     public HealthCheck checkReadiness() {
         // since no memory viewpoint, unconditionally returns up.
-<span class="fc" id="L65">        return () -&gt; HealthCheckResponse.named(readinessName).up().build();</span>
+<span class="fc" id="L64">        return () -&gt; HealthCheckResponse.named(readinessName).up().build();</span>
     }
 
     // ----------------------------------------------------- observe method
 
     void resetEvaluator(@Observes MemoryLivenessEvaluator evaluator) {
-<span class="fc" id="L71">        log.info(&quot;recieve event. event=&quot; + evaluator);</span>
-<span class="fc" id="L72">        this.evaluator = evaluator;</span>
-<span class="fc" id="L73">    }</span>
+<span class="fc" id="L70">        log.info(&quot;recieve event. event=&quot; + evaluator);</span>
+<span class="fc" id="L71">        this.evaluator = evaluator;</span>
+<span class="fc" id="L72">    }</span>
 
 
     // ----------------------------------------------------- inner classes
@@ -78,21 +77,21 @@ public class MemoryHealthCheck {
     interface MemoryLivenessEvaluator {
 
         // メモリ使用量が閾値以下であることの評価
-<span class="fc" id="L81">        static final MemoryUsageFunction absoluteFunction =</span>
-<span class="pc bpc" id="L82" title="1 of 2 branches missed.">                (memoryUsage, threshold) -&gt; memoryUsage.getUsed() &lt; threshold * 1024 * 1024;</span>
+<span class="fc" id="L80">        static final MemoryUsageFunction absoluteFunction =</span>
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">                (memoryUsage, threshold) -&gt; memoryUsage.getUsed() &lt; threshold * 1024 * 1024;</span>
         // メモリ使用率が閾値以下であることの評価
-<span class="fc" id="L84">        static final MemoryUsageFunction relativeFunction =</span>
-<span class="pc bpc" id="L85" title="1 of 2 branches missed.">                (memoryUsage, threshold) -&gt; (memoryUsage.getUsed() / (double) memoryUsage.getMax()) * 100 &lt; (double) threshold;</span>
+<span class="fc" id="L83">        static final MemoryUsageFunction relativeFunction =</span>
+<span class="pc bpc" id="L84" title="1 of 2 branches missed.">                (memoryUsage, threshold) -&gt; (memoryUsage.getUsed() / (double) memoryUsage.getMax()) * 100 &lt; (double) threshold;</span>
 
         String name();
         long threshold();
         boolean liveness(MemoryUsage memoryUsage);
 
         static MemoryLivenessEvaluator of(String method, long threshold) {
-<span class="pc bpc" id="L92" title="1 of 3 branches missed.">            return switch (method) {</span>
-<span class="fc" id="L93">                case &quot;abs&quot; -&gt; new EvaluateHolder(&quot;abs&quot;, absoluteFunction, threshold);</span>
-<span class="fc" id="L94">                case &quot;rel&quot; -&gt; new EvaluateHolder(&quot;rel&quot;, relativeFunction, threshold);</span>
-<span class="nc" id="L95">                default -&gt; new EvaluateHolder(&quot;rel&quot;, relativeFunction, threshold);</span>
+<span class="pc bpc" id="L91" title="1 of 3 branches missed.">            return switch (method) {</span>
+<span class="fc" id="L92">                case &quot;abs&quot; -&gt; new EvaluateHolder(&quot;abs&quot;, absoluteFunction, threshold);</span>
+<span class="fc" id="L93">                case &quot;rel&quot; -&gt; new EvaluateHolder(&quot;rel&quot;, relativeFunction, threshold);</span>
+<span class="nc" id="L94">                default -&gt; new EvaluateHolder(&quot;rel&quot;, relativeFunction, threshold);</span>
             };
         }
     }
@@ -103,29 +102,29 @@ public class MemoryHealthCheck {
         MemoryUsageFunction func;
         long threshold;
 
-<span class="fc" id="L106">        EvaluateHolder(String name, MemoryUsageFunction func, long threshold) {</span>
-<span class="fc" id="L107">            this.name = name;</span>
-<span class="fc" id="L108">            this.func = func;</span>
-<span class="fc" id="L109">            this.threshold = threshold;</span>
-<span class="fc" id="L110">        }</span>
+<span class="fc" id="L105">        EvaluateHolder(String name, MemoryUsageFunction func, long threshold) {</span>
+<span class="fc" id="L106">            this.name = name;</span>
+<span class="fc" id="L107">            this.func = func;</span>
+<span class="fc" id="L108">            this.threshold = threshold;</span>
+<span class="fc" id="L109">        }</span>
 
         @Override
         public String name() {
-<span class="fc" id="L114">            return name;</span>
+<span class="fc" id="L113">            return name;</span>
         }
         @Override
         public long threshold() {
-<span class="fc" id="L118">            return threshold;</span>
+<span class="fc" id="L117">            return threshold;</span>
         }
         @Override
         public boolean liveness(MemoryUsage memoryUsage) {
-<span class="fc" id="L122">            return func.evaluate(memoryUsage, threshold);</span>
+<span class="fc" id="L121">            return func.evaluate(memoryUsage, threshold);</span>
         }
     }
 
     interface MemoryUsageFunction extends BiFunction&lt;MemoryUsage, Long, Boolean&gt; {
         default boolean evaluate(MemoryUsage memoryUsage, long threshold) {
-<span class="fc" id="L128">            return apply(memoryUsage, threshold);</span>
+<span class="fc" id="L127">            return apply(memoryUsage, threshold);</span>
         }
     }
 

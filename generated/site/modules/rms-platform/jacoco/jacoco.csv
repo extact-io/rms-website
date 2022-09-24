@@ -39,9 +39,9 @@ rms-platform,io.extact.rms.platform.health,MemoryHealthCheck.EvaluateHolder,0,25
 rms-platform,io.extact.rms.platform.health,MemoryHealthCheck.MemoryUsageFunction,0,8,0,0,0,1,0,1,0,1
 rms-platform,io.extact.rms.platform.health,MemoryHealthCheck.MemoryLivenessEvaluator,8,60,3,4,1,7,3,5,0,4
 rms-platform,io.extact.rms.platform.health,MemoryHealthCheck,0,87,0,0,0,23,0,7,0,7
-rms-platform,io.extact.rms.platform.debug,MpConfigDump,76,14,3,1,14,6,5,3,3,3
-rms-platform,io.extact.rms.platform.debug,MpConfigDump.ContainsForwardMatch,24,0,4,0,4,0,4,0,2,0
+rms-platform,io.extact.rms.platform.debug,MpConfigDump,78,14,3,1,14,6,5,3,3,3
 rms-platform,io.extact.rms.platform.debug,ServerHeaderDumpFilter,88,0,4,0,18,0,8,0,6,0
+rms-platform,io.extact.rms.platform.debug,MpConfigDump.ContainsKeyworkWithForwardMatch,24,0,4,0,4,0,4,0,2,0
 rms-platform,io.extact.rms.platform.debug,DebugSleepInterceptor,48,0,2,0,10,0,4,0,3,0
 rms-platform,io.extact.rms.platform.extension,ConfiguredCdiBean,0,12,0,0,0,4,0,4,0,4
 rms-platform,io.extact.rms.platform.extension,ConfiguredCdiBeanBinder.ConfiguredCdiBeansListBinder,0,21,0,0,0,6,0,3,0,3

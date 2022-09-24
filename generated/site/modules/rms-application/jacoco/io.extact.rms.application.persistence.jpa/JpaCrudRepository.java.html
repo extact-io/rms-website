@@ -2,58 +2,57 @@
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.validation.Valid;
-
 import io.extact.rms.application.domain.IdAccessable;
 import io.extact.rms.application.domain.constraint.ValidationGroups.Add;
 import io.extact.rms.application.domain.constraint.ValidationGroups.Update;
 import io.extact.rms.application.persistence.GenericRepository;
 import io.extact.rms.platform.validate.ValidateGroup;
 import io.extact.rms.platform.validate.ValidateParam;
+import jakarta.persistence.EntityManager;
+import jakarta.validation.Valid;
 
-public interface JpaCrudRepository&lt;T extends IdAccessable&gt; extends GenericRepository&lt;T&gt; {
+<span class="fc" id="L14">public abstract class JpaCrudRepository&lt;T extends IdAccessable&gt; implements GenericRepository&lt;T&gt; {</span>
 
     @Override
-    default T get(int id) {
-<span class="fc" id="L19">        return this.getEntityManage().find(this.getTargetClass(), id);</span>
+    public T get(int id) {
+<span class="fc" id="L18">        return this.getEntityManage().find(this.getTargetClass(), id);</span>
     }
 
     @Override
-    default List&lt;T&gt; findAll() {
-<span class="fc" id="L24">        var jpql = &quot;select e from &quot; + this.getTargetClass().getSimpleName() + &quot; e order by e.id&quot;;</span>
-<span class="fc" id="L25">        return this.getEntityManage().createQuery(jpql, this.getTargetClass())</span>
-<span class="fc" id="L26">                .getResultList();</span>
+    public List&lt;T&gt; findAll() {
+<span class="fc" id="L23">        var jpql = &quot;select e from &quot; + this.getTargetClass().getSimpleName() + &quot; e order by e.id&quot;;</span>
+<span class="fc" id="L24">        return this.getEntityManage().createQuery(jpql, this.getTargetClass())</span>
+<span class="fc" id="L25">                .getResultList();</span>
     }
 
     @ValidateParam
     @ValidateGroup(groups = Add.class)
     @Override
-    default void add(@Valid T entity) {
-<span class="fc" id="L33">        this.getEntityManage().persist(entity);</span>
-<span class="fc" id="L34">        this.getEntityManage().flush();</span>
-<span class="fc" id="L35">    }</span>
+    public void add(@Valid T entity) {
+<span class="fc" id="L32">        this.getEntityManage().persist(entity);</span>
+<span class="fc" id="L33">        this.getEntityManage().flush();</span>
+<span class="fc" id="L34">    }</span>
 
     @ValidateParam
     @ValidateGroup(groups = Update.class)
     @Override
-    default T update(@Valid T entity) {
-<span class="fc bfc" id="L41" title="All 4 branches covered.">        if (!this.getEntityManage().contains(entity) &amp;&amp; get(entity.getId()) == null) {</span>
-<span class="fc" id="L42">            return null;</span>
+    public T update(@Valid T entity) {
+<span class="fc bfc" id="L40" title="All 4 branches covered.">        if (!this.getEntityManage().contains(entity) &amp;&amp; get(entity.getId()) == null) {</span>
+<span class="fc" id="L41">            return null;</span>
         }
-<span class="fc" id="L44">        var updated = this.getEntityManage().merge(entity);</span>
-<span class="fc" id="L45">        this.getEntityManage().flush();</span>
-<span class="fc" id="L46">        return updated;</span>
+<span class="fc" id="L43">        var updated = this.getEntityManage().merge(entity);</span>
+<span class="fc" id="L44">        this.getEntityManage().flush();</span>
+<span class="fc" id="L45">        return updated;</span>
     }
 
     @Override
-    default void delete(T entity) {
-<span class="fc" id="L51">        this.getEntityManage().remove(entity);</span>
-<span class="fc" id="L52">        this.getEntityManage().flush();</span>
-<span class="fc" id="L53">    }</span>
+    public void delete(T entity) {
+<span class="fc" id="L50">        this.getEntityManage().remove(entity);</span>
+<span class="fc" id="L51">        this.getEntityManage().flush();</span>
+<span class="fc" id="L52">    }</span>
 
-    EntityManager getEntityManage();
+    protected abstract EntityManager getEntityManage();
 
-    Class&lt;T&gt; getTargetClass();
+    protected abstract Class&lt;T&gt; getTargetClass();
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

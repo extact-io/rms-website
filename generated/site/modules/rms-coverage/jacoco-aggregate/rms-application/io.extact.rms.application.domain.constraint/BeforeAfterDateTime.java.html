@@ -8,12 +8,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.time.LocalDateTime;
 
-import javax.validation.Constraint;
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-import javax.validation.Payload;
-
 import io.extact.rms.application.domain.constraint.BeforeAfterDateTime.BeforeAfterDateTimeValidator;
+import jakarta.validation.Constraint;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+import jakarta.validation.Payload;
 
 @Documented
 @Constraint(validatedBy = { BeforeAfterDateTimeValidator.class })
@@ -38,12 +37,12 @@ public @interface BeforeAfterDateTime {
         BeforeAfterDateTime[] value();
     }
 
-<span class="fc" id="L41">    public static class BeforeAfterDateTimeValidator implements ConstraintValidator&lt;BeforeAfterDateTime, BeforeAfterDateTimeValidatable&gt; {</span>
+<span class="fc" id="L40">    public static class BeforeAfterDateTimeValidator implements ConstraintValidator&lt;BeforeAfterDateTime, BeforeAfterDateTimeValidatable&gt; {</span>
         public boolean isValid(BeforeAfterDateTimeValidatable bean, ConstraintValidatorContext context) {
-<span class="fc bfc" id="L43" title="All 4 branches covered.">            if (bean.getStartDateTime() == null || bean.getEndDateTime() == null) {</span>
-<span class="fc" id="L44">                return true; // チェックしない</span>
+<span class="fc bfc" id="L42" title="All 4 branches covered.">            if (bean.getStartDateTime() == null || bean.getEndDateTime() == null) {</span>
+<span class="fc" id="L43">                return true; // チェックしない</span>
             }
-<span class="fc" id="L46">            return bean.getStartDateTime().isBefore(bean.getEndDateTime());</span>
+<span class="fc" id="L45">            return bean.getStartDateTime().isBefore(bean.getEndDateTime());</span>
         }
     }
 

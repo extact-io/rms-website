@@ -6,13 +6,12 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Initialized;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-
 import org.eclipse.microprofile.config.Config;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Initialized;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -27,49 +26,49 @@ import lombok.extern.slf4j.Slf4j;
  * &lt;/pre&gt;
  */
 @ApplicationScoped
-<span class="fc" id="L30">@Slf4j(topic = &quot;ConfigDump&quot;)</span>
+<span class="fc" id="L29">@Slf4j(topic = &quot;ConfigDump&quot;)</span>
 public class MpConfigDump {
 
     private Config config;
 
     @Inject
-<span class="fc" id="L36">    public MpConfigDump(Config config) {</span>
-<span class="fc" id="L37">        this.config = config;</span>
-<span class="fc" id="L38">    }</span>
+<span class="fc" id="L35">    public MpConfigDump(Config config) {</span>
+<span class="fc" id="L36">        this.config = config;</span>
+<span class="fc" id="L37">    }</span>
     void onInialized(@Observes @Initialized(ApplicationScoped.class) Object event) {
 
-<span class="pc bpc" id="L41" title="1 of 2 branches missed.">        if (!log.isDebugEnabled()) {</span>
-<span class="fc" id="L42">            return;</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if (!log.isDebugEnabled()) {</span>
+<span class="fc" id="L41">            return;</span>
         }
 
-<span class="nc" id="L45">        List&lt;String&gt; filters = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L46" title="All 2 branches missed.">        if (config.getOptionalValue(&quot;configdump.filter-enable&quot;, Boolean.class).orElse(false)) {</span>
-<span class="nc" id="L47">            filters = StreamSupport.stream(config.getPropertyNames().spliterator(), false)</span>
-<span class="nc" id="L48">                    .filter(s -&gt; s.startsWith(&quot;configdump.filters&quot;))</span>
-<span class="nc" id="L49">                    .map(s -&gt; config.getValue(s, String.class))</span>
-<span class="nc" id="L50">                    .toList();</span>
+<span class="nc" id="L44">        List&lt;String&gt; filters = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">        if (config.getOptionalValue(&quot;configdump.filter-enable&quot;, Boolean.class).orElse(false)) {</span>
+<span class="nc" id="L46">            filters = StreamSupport.stream(config.getPropertyNames().spliterator(), false)</span>
+<span class="nc" id="L47">                    .filter(s -&gt; s.startsWith(&quot;configdump.filters&quot;))</span>
+<span class="nc" id="L48">                    .map(s -&gt; config.getValue(s, String.class))</span>
+<span class="nc" id="L49">                    .toList();</span>
         }
 
-<span class="nc" id="L53">        Predicate&lt;String&gt; containsForwardMatch = new ContainsForwardMatch(filters);</span>
-<span class="nc" id="L54">        String configDump = StreamSupport.stream(config.getPropertyNames().spliterator(), false)</span>
-<span class="nc" id="L55">            .filter(containsForwardMatch)</span>
-<span class="nc" id="L56">            .map(name -&gt; name + &quot;=&quot; + config.getValue(name, String.class))</span>
-<span class="nc" id="L57">            .sorted()</span>
-<span class="nc" id="L58">            .collect(Collectors.joining(System.lineSeparator()));</span>
+<span class="nc" id="L52">        Predicate&lt;String&gt; containsKeyword = new ContainsKeyworkWithForwardMatch(filters);</span>
+<span class="nc" id="L53">        String configDump = StreamSupport.stream(config.getPropertyNames().spliterator(), false)</span>
+<span class="nc" id="L54">            .filter(containsKeyword)</span>
+<span class="nc" id="L55">            .map(name -&gt; name + &quot;=&quot; + config.getOptionalValue(name, String.class).orElse(&quot;&quot;))</span>
+<span class="nc" id="L56">            .sorted()</span>
+<span class="nc" id="L57">            .collect(Collectors.joining(System.lineSeparator()));</span>
 
-<span class="nc" id="L60">        log.debug(System.lineSeparator() + configDump);</span>
-<span class="nc" id="L61">    }</span>
+<span class="nc" id="L59">        log.debug(System.lineSeparator() + configDump);</span>
+<span class="nc" id="L60">    }</span>
 
-    static class ContainsForwardMatch implements Predicate&lt;String&gt; {
+    static class ContainsKeyworkWithForwardMatch implements Predicate&lt;String&gt; {
 
         private List&lt;String&gt; filters;
-<span class="nc" id="L66">        ContainsForwardMatch(List&lt;String&gt; filters) {</span>
-<span class="nc" id="L67">            this.filters = filters;</span>
-<span class="nc" id="L68">        }</span>
+<span class="nc" id="L65">        ContainsKeyworkWithForwardMatch(List&lt;String&gt; filters) {</span>
+<span class="nc" id="L66">            this.filters = filters;</span>
+<span class="nc" id="L67">        }</span>
 
         @Override
         public boolean test(String name) {
-<span class="nc bnc" id="L72" title="All 4 branches missed.">            return filters.isEmpty() || filters.stream().anyMatch(name::startsWith);</span>
+<span class="nc bnc" id="L71" title="All 4 branches missed.">            return filters.isEmpty() || filters.stream().anyMatch(name::startsWith);</span>
         }
     }
 }
