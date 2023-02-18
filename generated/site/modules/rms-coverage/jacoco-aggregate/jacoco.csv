@@ -68,8 +68,8 @@ rms-coverage/rms-client-api,io.extact.rms.client.api.dto,UserAccountClientDto,0,
 rms-coverage/rms-client-api,io.extact.rms.client.api.dto,RentalItemClientDto,81,98,27,3,0,9,17,12,2,12
 rms-coverage/rms-client-api,io.extact.rms.client.api.dto,ReservationClientDto,0,112,0,0,0,13,0,21,0,21
 rms-coverage/rms-client-api,io.extact.rms.client.api.exception,RentalReservationClientException,0,10,0,0,0,4,0,2,0,2
-rms-coverage/rms-client-api,io.extact.rms.client.api.exception,RmsSystemClientException,8,0,0,0,4,0,2,0,2,0
 rms-coverage/rms-client-api,io.extact.rms.client.api.exception,ValidateClientException.ValidationErrorItem,0,17,0,0,0,7,0,5,0,5
+rms-coverage/rms-client-api,io.extact.rms.client.api.exception,RmsSystemClientException,8,0,0,0,4,0,2,0,2,0
 rms-coverage/rms-client-api,io.extact.rms.client.api.exception,ValidateClientException.ValidationErrorMessage,6,18,0,0,2,8,2,5,2,5
 rms-coverage/rms-client-api,io.extact.rms.client.api.exception,BusinessFlowClientException,0,8,0,0,0,4,0,2,0,2
 rms-coverage/rms-client-api,io.extact.rms.client.api.exception,UnknownClientException,8,0,0,0,4,0,2,0,2,0
@@ -156,8 +156,8 @@ rms-coverage/rms-server,io.extact.rms.external.webapi.dto,LoginDto,0,32,0,0,0,5,
 rms-coverage/rms-server,io.extact.rms.external.webapi.dto,ReservationResourceDto,12,137,5,5,3,28,5,20,0,20
 rms-coverage/rms-server,io.extact.rms.external.webapi.dto,AddReservationDto,0,50,0,0,0,8,0,12,0,12
 rms-coverage/rms-server,io.extact.rms.external.webapi.dto,AddUserAccountDto,0,59,0,0,0,9,0,14,0,14
-rms-coverage/rms-client-ui-console,io.extact.rms.client.console.ui.member,ReserveRentalItemScreen,128,0,4,0,40,0,6,0,4,0
 rms-coverage/rms-client-ui-console,io.extact.rms.client.console.ui.member,MemberMainScreen,20,0,0,0,5,0,2,0,2,0
+rms-coverage/rms-client-ui-console,io.extact.rms.client.console.ui.member,ReserveRentalItemScreen,128,0,4,0,40,0,6,0,4,0
 rms-coverage/rms-client-ui-console,io.extact.rms.client.console.ui.member,MemberMainScreen.MemberMenuList,60,0,0,0,8,0,4,0,4,0
 rms-coverage/rms-client-ui-console,io.extact.rms.client.console.ui.member,CancelReservationScreen,90,0,6,0,33,0,7,0,4,0
 rms-coverage/rms-client-ui-console,io.extact.rms.client.console.ui.member,InquiryReservationScreen,108,0,4,0,33,0,7,0,5,0
