@@ -22,8 +22,8 @@ rms-client-ui-console,io.extact.rms.client.console.ui,ClientConstants,43,0,0,0,1
 rms-client-ui-console,io.extact.rms.client.console.ui,EndScreen,5,0,0,0,2,0,2,0,2,0
 rms-client-ui-console,io.extact.rms.client.console.ui,DtoFormatter.UserAccountFormatter,33,0,0,0,7,0,2,0,2,0
 rms-client-ui-console,io.extact.rms.client.console.ui,LoginScreen,94,0,6,0,25,0,5,0,2,0
-rms-client-ui-console,io.extact.rms.client.console.ui,TransitionMap,28,0,0,0,6,0,4,0,4,0
 rms-client-ui-console,io.extact.rms.client.console.ui,TransitionMap.Transition,63,0,0,0,11,0,1,0,1,0
+rms-client-ui-console,io.extact.rms.client.console.ui,TransitionMap,28,0,0,0,6,0,4,0,4,0
 rms-client-ui-console,io.extact.rms.client.console.ui,DtoFormatter.RentalItemFormatter,23,0,0,0,5,0,2,0,2,0
 rms-client-ui-console,io.extact.rms.client.console.login,LoginEventReciever,37,0,0,0,12,0,7,0,7,0
 rms-client-ui-console,io.extact.rms.client.console.login,LoggedInAuditLog,14,0,0,0,4,0,3,0,3,0
